@@ -2,6 +2,7 @@ package com.sicau.springbootgraduationproject.facade.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sicau.springbootgraduationproject.common.result.Result;
 import com.sicau.springbootgraduationproject.facade.entity.LessonPlan;
 import com.sicau.springbootgraduationproject.facade.entity.User;
 import com.sicau.springbootgraduationproject.facade.mapper.LessonPlanMapper;
@@ -12,6 +13,7 @@ import com.sicau.springbootgraduationproject.facade.vo.QueryLessonPlan;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,6 +27,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonPlan> implements LessonPlanService {
 
+    @Autowired
+    private LessonPlanMapper lessonPlanMapper;
     @Override
     public Page<LessonPlan> getLessonPlanPage(QueryLessonPlan queryLessonPlan) {
         Subject currentUser = SecurityUtils.getSubject();
@@ -56,4 +60,12 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
         BeanUtils.copyProperties(lessonPlanInfo, lessonPlan);
         return this.save(lessonPlan);
     }
+
+    @Override
+    public LessonPlan getLessonPlanCount() {
+        LessonPlan result = lessonPlanMapper.getCountLessonPlan();
+        return result;
+    }
+
+
 }

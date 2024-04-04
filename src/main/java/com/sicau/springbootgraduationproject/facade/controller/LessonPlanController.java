@@ -66,4 +66,11 @@ public class LessonPlanController {
         boolean result = lessonPlanService.getAddLessonPlan(lessonPlanInfo);
         return result ? new Result<>().success().put(result) : new Result<>().fail();
     }
+
+    @PostMapping("/lessonPlanType")
+    @ApiOperation("首页用户可视化查询，统计教案类型，不用参数")
+    public Result<?> countLessonPlanType() {
+        LessonPlan result = lessonPlanService.getLessonPlanCount();
+        return new Result<>().success().put(result);
+    }
 }

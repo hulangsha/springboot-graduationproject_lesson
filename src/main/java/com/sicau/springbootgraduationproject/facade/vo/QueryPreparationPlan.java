@@ -1,8 +1,6 @@
 package com.sicau.springbootgraduationproject.facade.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -16,9 +14,19 @@ import java.time.LocalDateTime;
  * @since 2024-03-30
  */
 @Data
-public class LessonPlanInfo implements Serializable {
+public class QueryPreparationPlan implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * 计划id
+     */
+    private Integer planId;
+
+    /**
+     * 计划标题
+     */
+    private String title;
 
     /**
      * 教案id
@@ -26,19 +34,14 @@ public class LessonPlanInfo implements Serializable {
     private Integer lessonPlanId;
 
     /**
-     * 教案标题
-     */
-    private String title;
-
-    /**
      * 教学目标
      */
     private String objectives;
 
     /**
-     * 教学步骤
+     * 教学内容
      */
-    private String steps;
+    private String content;
 
     /**
      * 教学资源
@@ -53,15 +56,11 @@ public class LessonPlanInfo implements Serializable {
     /**
      * 创建时间
      */
-//    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-//    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
     private LocalDateTime createTime;
 
     /**
      * 最后修改时间
      */
-//    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-//    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
     private LocalDateTime lastUpdateTime;
 
     /**
@@ -69,6 +68,20 @@ public class LessonPlanInfo implements Serializable {
      */
     private String isDelete;
 
+    /**
+     * 统计字段完成情况
+     */
+    private String fieldCount;
+
+    /**
+     * 当前页
+     */
+    private Long currentPage;
+
+    /**
+     * 每页显示条数
+     */
+    private Long pageSize;
 
 
 }

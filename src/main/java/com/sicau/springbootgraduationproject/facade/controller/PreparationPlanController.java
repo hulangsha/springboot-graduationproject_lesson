@@ -1,11 +1,17 @@
 package com.sicau.springbootgraduationproject.facade.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sicau.springbootgraduationproject.common.component.CommonCode;
 import com.sicau.springbootgraduationproject.common.result.PageResult;
+import com.sicau.springbootgraduationproject.facade.entity.PreparationPlan;
 import com.sicau.springbootgraduationproject.facade.service.PreparationPlanService;
+import com.sicau.springbootgraduationproject.facade.vo.QueryPreparationPlan;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -20,14 +26,19 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/preparationPlan")
-@Api("备课计划和进度模块")
+@Api(tags = "备课计划和进度模块")
 public class PreparationPlanController {
 
     @Autowired
     private PreparationPlanService preparationPlanService;
 
     @PostMapping("/preparationPlanPage")
-    public PageResult getPreparationPlanPage(){
-        return null;
+    @ApiOperation("查询准备计划和进度，必须传的参数是currentPage和pageSize")
+    public PageResult getPreparationPlanPage(@RequestBody QueryPreparationPlan queryPreparationPlan){
+        Page<PreparationPlan> page = preparationPlanService.getPreparationPlanPage(queryPreparationPlan);
+        PageResult<PreparationPlan> pageResult = new PageResult<>(page.getCurrent(), page.getSize(), page.getTotal(), page.getPages(), page.getRecords());
+        pageResult.setCode(CommonCode.SUCCESS.getCode());
+        pageResult.setMsg(CommonCode.SUCCESS.getMessage());
+        return pageResult;
     }
 }
