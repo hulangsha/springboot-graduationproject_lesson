@@ -22,4 +22,6 @@ public class CorsWebFilterConfig {
         source.registerCorsConfiguration("/**",configuration);
         return new CorsFilter(source);
     }
+
+
 }

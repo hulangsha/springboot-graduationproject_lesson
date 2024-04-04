@@ -7,6 +7,8 @@ import com.sicau.springbootgraduationproject.facade.service.NoticeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -19,8 +21,8 @@ import org.springframework.stereotype.Service;
 public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> implements NoticeService {
 
     @Override
-    public Notice getNotice() {
+    public List<Notice> getNotice() {
         QueryWrapper<Notice> wrapper = new QueryWrapper<>();
-        return this.getOne(wrapper);
+        return this.list(wrapper);
     }
 }

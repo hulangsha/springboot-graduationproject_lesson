@@ -1,6 +1,7 @@
 package com.sicau.springbootgraduationproject.facade.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sicau.springbootgraduationproject.common.component.CommonCode;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -46,31 +49,53 @@ public class LessonPlanController {
     @PostMapping("/lessonPlanPage")
     @ApiOperation(value = "查询教案，并且分页,")
     public PageResult getLessonPlan(@RequestBody QueryLessonPlan queryLessonPlan) {
-        Page<LessonPlan> page = lessonPlanService.getLessonPlanPage(queryLessonPlan);
-        PageResult<LessonPlan> pageResult = new PageResult<>(queryLessonPlan.getCurrentPage(), queryLessonPlan.getPageSize(), page.getTotal(), page.getPages(), page.getRecords());
-        pageResult.setCode(CommonCode.SUCCESS.getCode());
-        pageResult.setMsg(CommonCode.SUCCESS.getMessage());
+        PageResult<LessonPlan> pageResult = null;
+        try {
+            Page<LessonPlan> page = lessonPlanService.getLessonPlanPage(queryLessonPlan);
+            pageResult = new PageResult<>(queryLessonPlan.getCurrentPage(), queryLessonPlan.getPageSize(), page.getTotal(), page.getPages(), page.getRecords());
+            pageResult.setCode(CommonCode.SUCCESS.getCode());
+            pageResult.setMsg(CommonCode.SUCCESS.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return pageResult;
     }
 
     @PostMapping("/lessonPlanUpdate")
     @ApiOperation("编辑教案")
     public Result<?> updateLessonPlan(@RequestBody LessonPlanInfo lessonPlanInfo) {
-        boolean result = lessonPlanService.getUpdateLessonPlan(lessonPlanInfo);
+        boolean result = false;
+        try {
+            result = lessonPlanService.getUpdateLessonPlan(lessonPlanInfo);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return result ? new Result<>().success().put(result) : new Result<>().fail();
     }
 
     @PostMapping("/lessonPlanAdd")
     @ApiOperation("新增教案")
     public Result<?> addLessonPlan(@RequestBody LessonPlanInfo lessonPlanInfo) {
-        boolean result = lessonPlanService.getAddLessonPlan(lessonPlanInfo);
+        boolean result = false;
+        try {
+            result = lessonPlanService.getAddLessonPlan(lessonPlanInfo);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return result ? new Result<>().success().put(result) : new Result<>().fail();
     }
 
     @PostMapping("/lessonPlanType")
     @ApiOperation("首页用户可视化查询，统计教案类型，不用参数")
     public Result<?> countLessonPlanType() {
-        LessonPlan result = lessonPlanService.getLessonPlanCount();
-        return new Result<>().success().put(result);
+        List<LessonPlan> result = null;
+        try {
+            result = lessonPlanService.getLessonPlanCount();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reslut",result);
+        return new Result<>().success().put(jsonObject);
     }
 }

@@ -16,6 +16,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -62,8 +64,8 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
     }
 
     @Override
-    public LessonPlan getLessonPlanCount() {
-        LessonPlan result = lessonPlanMapper.getCountLessonPlan();
+    public List<LessonPlan> getLessonPlanCount() {
+        List<LessonPlan> result = lessonPlanMapper.getCountLessonPlan();
         return result;
     }
 

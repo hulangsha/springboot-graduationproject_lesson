@@ -104,7 +104,7 @@ public class CodeGenerator {
         // strategy.setSuperEntityClass("com.baomidou.ant.common.BaseEntity");
         strategy.setRestControllerStyle(true);
         // strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
-        strategy.setInclude("t_friendship_links");// 表名
+        strategy.setInclude("t_count_user");// 表名
         // strategy.setSuperEntityColumns("id");
         // strategy.setControllerMappingHyphenStyle(true);
         // strategy.setTablePrefix(pc.getModuleName() + "_");

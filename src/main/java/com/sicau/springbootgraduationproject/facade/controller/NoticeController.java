@@ -1,15 +1,16 @@
 package com.sicau.springbootgraduationproject.facade.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.sicau.springbootgraduationproject.common.result.Result;
 import com.sicau.springbootgraduationproject.facade.entity.Notice;
 import com.sicau.springbootgraduationproject.facade.service.NoticeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -30,7 +31,16 @@ public class NoticeController {
     @GetMapping("/publish")
     @ApiOperation("发布系统通知，无需参数")
     public Result<?> getSystemNotice(){
-        Notice result =  noticeService.getNotice();
-        return new Result<>().success().put(result);
+        List<Notice> result;
+        try {
+             result =  noticeService.getNotice();
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Result<>().success().put(e);
+        }
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("result",result);
+        return new Result<>().success().put(jsonObject);
     }
 }

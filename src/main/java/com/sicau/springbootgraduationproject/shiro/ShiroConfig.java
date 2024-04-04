@@ -39,7 +39,7 @@ public class ShiroConfig {
         HashMap<String , String > filterMap = new LinkedHashMap<>();
         filterMap.put("/api/user/login","anon");
         filterMap.put("/api/error/401","anon");
-        filterMap.put("/**","jwt");
+        filterMap.put("/**","anon");
         factoryBean.setFilterChainDefinitionMap(filterMap);
         return factoryBean;
     }
