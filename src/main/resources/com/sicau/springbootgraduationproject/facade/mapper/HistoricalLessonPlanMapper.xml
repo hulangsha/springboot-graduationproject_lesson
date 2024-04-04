@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sicau.springbootgraduationproject.facade.mapper.HistoricalLessonPlanMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sicau.springbootgraduationproject.facade.entity.HistoricalLessonPlan">
+        <id column="historical_lesson_plan_id" property="historicalLessonPlanId" />
+        <result column="lesson_plan_id" property="lessonPlanId" />
+        <result column="version" property="version" />
+        <result column="create_time" property="createTime" />
+        <result column="creator_id" property="creatorId" />
+        <result column="update_time" property="updateTime" />
+        <result column="updater_id" property="updaterId" />
+        <result column="isDelete" property="isDelete" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        historical_lesson_plan_id, lesson_plan_id, version, create_time, creator_id, update_time, updater_id, isDelete
+    </sql>
+
+</mapper>

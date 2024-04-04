@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sicau.springbootgraduationproject.facade.mapper.PreparationPlanMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sicau.springbootgraduationproject.facade.entity.PreparationPlan">
+        <id column="plan_id" property="planId" />
+        <result column="title" property="title" />
+        <result column="lesson_plan_id" property="lessonPlanId" />
+        <result column="objectives" property="objectives" />
+        <result column="content" property="content" />
+        <result column="resources" property="resources" />
+        <result column="creator_id" property="creatorId" />
+        <result column="create_time" property="createTime" />
+        <result column="last_update_time" property="lastUpdateTime" />
+        <result column="isDelete" property="isDelete" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        plan_id, title, lesson_plan_id, objectives, content, resources, creator_id, create_time, last_update_time, isDelete
+    </sql>
+
+</mapper>

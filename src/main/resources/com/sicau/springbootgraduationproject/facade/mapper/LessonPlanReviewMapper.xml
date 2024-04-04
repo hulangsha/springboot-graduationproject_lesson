@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sicau.springbootgraduationproject.facade.mapper.LessonPlanReviewMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sicau.springbootgraduationproject.facade.entity.LessonPlanReview">
+        <id column="review_id" property="reviewId" />
+        <result column="lesson_plan_id" property="lessonPlanId" />
+        <result column="reviewer_id" property="reviewerId" />
+        <result column="comments" property="comments" />
+        <result column="review_time" property="reviewTime" />
+        <result column="isDelete" property="isDelete" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        review_id, lesson_plan_id, reviewer_id, comments, review_time, isDelete
+    </sql>
+
+</mapper>
