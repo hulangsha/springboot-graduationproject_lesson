@@ -86,5 +86,11 @@ public class LessonPlan implements Serializable {
     @TableField("isDelete")
     private String isDelete;
 
+    /**
+     * 是否共享，0共享，1不共享
+     */
+    @TableField("shareState")
+    private String shareState;
+
 
 }

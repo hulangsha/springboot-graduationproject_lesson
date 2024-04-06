@@ -13,11 +13,12 @@
         <result column="create_time" property="createTime" />
         <result column="last_update_time" property="lastUpdateTime" />
         <result column="isDelete" property="isDelete" />
+        <result column="share_state" property="shareState" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        lesson_plan_id, title, objectives, steps, resources, creator_id, create_time, last_update_time, isDelete
+        lesson_plan_id, title, objectives, steps, resources, creator_id, create_time, last_update_time, isDelete, share_state
     </sql>
     <select id="getCountLessonPlan"
             resultType="com.sicau.springbootgraduationproject.facade.entity.LessonPlan">

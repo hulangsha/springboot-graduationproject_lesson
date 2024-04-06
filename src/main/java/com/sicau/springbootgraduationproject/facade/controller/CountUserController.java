@@ -23,14 +23,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/countUser")
-@Api(tags = "首页可视化数据API")
+@Api(tags = "首页")
 public class CountUserController {
 
     @Autowired
     private CountUserService countUserService;
 
     @GetMapping("/visual")
-    @ApiOperation("无需参数，直接访问接口即可拿到数据")
+    @ApiOperation("可视化数据API，无需参数，直接访问接口即可拿到数据")
     public Result<?> getVisual() {
         List<CountUser> result = null;
         try {

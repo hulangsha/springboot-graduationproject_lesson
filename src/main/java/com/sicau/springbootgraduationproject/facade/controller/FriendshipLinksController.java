@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/friendshipLinks")
-@Api(tags = "友情链接")
+@Api(tags = "首页")
 public class FriendshipLinksController {
     @Autowired
     private FriendshipLinksService friendshipLinksService;

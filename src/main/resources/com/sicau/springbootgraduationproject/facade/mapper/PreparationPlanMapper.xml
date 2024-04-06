@@ -14,11 +14,12 @@
         <result column="create_time" property="createTime" />
         <result column="last_update_time" property="lastUpdateTime" />
         <result column="isDelete" property="isDelete" />
+        <result column="field_count" property="fieldCount" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        plan_id, title, lesson_plan_id, objectives, content, resources, creator_id, create_time, last_update_time, isDelete
+        plan_id, title, lesson_plan_id, objectives, content, resources, creator_id, create_time, last_update_time, isDelete, field_count
     </sql>
 
 </mapper>

@@ -67,5 +67,17 @@ public class User implements Serializable {
     @TableField("isDelete")
     private String isDelete;
 
+    /**
+     * 上次登录地点
+     */
+    @TableField("lastLoginAddress")
+    private String lastLoginAddress;
+
+    /**
+     * 用户头像
+     */
+    @TableField("headPortrait")
+    private String headPortrait;
+
 
 }

@@ -11,11 +11,13 @@
         <result column="last_login_time" property="lastLoginTime" />
         <result column="nickname" property="nickname" />
         <result column="isDelete" property="isDelete" />
+        <result column="last_login_address" property="lastLoginAddress" />
+        <result column="head_portrait" property="headPortrait" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        user_id, user_name, password, create_time, last_login_time, nickname, isDelete
+        user_id, user_name, password, create_time, last_login_time, nickname, isDelete, last_login_address, head_portrait
     </sql>
     <select id="getUserRoleAndPermissionList"
             resultType="com.sicau.springbootgraduationproject.facade.vo.UserRolePermission">

@@ -22,14 +22,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/notice")
-@Api(tags = "系统公告")
+@Api(tags = "首页")
 public class NoticeController {
 
     @Autowired
     private NoticeService noticeService;
 
     @GetMapping("/publish")
-    @ApiOperation("发布系统通知，无需参数")
+    @ApiOperation("系统公告，发布系统通知，无需参数")
     public Result<?> getSystemNotice(){
         List<Notice> result;
         try {
