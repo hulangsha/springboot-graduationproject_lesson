@@ -13,6 +13,7 @@ import com.sicau.springbootgraduationproject.facade.service.LessonPlanService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sicau.springbootgraduationproject.facade.vo.LessonPlanInfo;
 import com.sicau.springbootgraduationproject.facade.vo.QueryLessonPlan;
+import com.sicau.springbootgraduationproject.facade.vo.UserInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
@@ -93,6 +94,13 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
     public List<LessonPlan> getLessonPlanCount() {
         List<LessonPlan> result = lessonPlanMapper.getCountLessonPlan();
         return result;
+    }
+
+    @Override
+    public List<LessonPlan> getTeam(UserInfo userInfo) {
+        QueryWrapper<LessonPlan> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("team", userInfo.getNickname());
+        return this.list(queryWrapper);
     }
 
 

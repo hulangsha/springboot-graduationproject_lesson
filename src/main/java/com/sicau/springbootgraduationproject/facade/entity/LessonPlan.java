@@ -98,5 +98,11 @@ public class LessonPlan implements Serializable {
     @TableField("version")
     private Integer version;
 
+    /**
+     * 协作人
+     */
+    @TableField("team")
+    private String team;
+
 
 }

@@ -15,6 +15,7 @@
         <result column="isDelete" property="isDelete" />
         <result column="share_state" property="shareState" />
         <result column="version" property="version" />
+        <result column="team" property="team" />
     </resultMap>
 
     <resultMap id="countMap" type="java.util.Map">
@@ -23,7 +24,7 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        lesson_plan_id, title, objectives, steps, resources, creator_id, create_time, last_update_time, isDelete, share_state, version
+        lesson_plan_id, title, objectives, steps, resources, creator_id, create_time, last_update_time, isDelete, share_state, team
     </sql>
     <select id="getCountLessonPlan" resultMap="countMap">
         SELECT title,count(*) as count FROM t_lesson_plan GROUP BY title

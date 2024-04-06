@@ -80,6 +80,13 @@ public class LessonPlanInfo implements Serializable {
      */
     private Integer version;
 
+    /**
+     * 协作人
+     */
+    @TableField("team")
+    private String team;
+
+
 
 
 }

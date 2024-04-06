@@ -11,6 +11,7 @@ import com.sicau.springbootgraduationproject.facade.service.LessonPlanService;
 import com.sicau.springbootgraduationproject.facade.service.UserService;
 import com.sicau.springbootgraduationproject.facade.vo.LessonPlanInfo;
 import com.sicau.springbootgraduationproject.facade.vo.QueryLessonPlan;
+import com.sicau.springbootgraduationproject.facade.vo.UserInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,8 +87,20 @@ public class LessonPlanController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("reslut",result);
-        return new Result<>().success().put(jsonObject);
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("reslut",result);
+        return new Result<>().success().put(result);
+    }
+
+    @PostMapping("/cooperation")
+    @ApiOperation(tags = "协作共享模块",value = "协作共享模块需要传输的参数必须要有nickname")
+    public Result<?> getTeam(@RequestBody UserInfo userInfo) {
+        List<LessonPlan> result = null;
+        try {
+            result = lessonPlanService.getTeam(userInfo);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return new Result<>().success().put(result);
     }
 }

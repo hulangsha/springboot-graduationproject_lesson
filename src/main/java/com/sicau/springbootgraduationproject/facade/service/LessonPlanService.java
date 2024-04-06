@@ -6,6 +6,7 @@ import com.sicau.springbootgraduationproject.facade.entity.LessonPlan;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sicau.springbootgraduationproject.facade.vo.LessonPlanInfo;
 import com.sicau.springbootgraduationproject.facade.vo.QueryLessonPlan;
+import com.sicau.springbootgraduationproject.facade.vo.UserInfo;
 
 import java.util.List;
 
@@ -35,4 +36,6 @@ public interface LessonPlanService extends IService<LessonPlan> {
     boolean getAddLessonPlan(LessonPlanInfo lessonPlanInfo);
 
     List<LessonPlan> getLessonPlanCount();
+
+    List<LessonPlan> getTeam(UserInfo userInfo);
 }
