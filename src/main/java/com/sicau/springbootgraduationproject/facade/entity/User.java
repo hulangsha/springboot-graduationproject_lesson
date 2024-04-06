@@ -70,13 +70,13 @@ public class User implements Serializable {
     /**
      * 上次登录地点
      */
-    @TableField("lastLoginAddress")
+    @TableField("last_login_address")
     private String lastLoginAddress;
 
     /**
      * 用户头像
      */
-    @TableField("headPortrait")
+    @TableField("head_portrait")
     private String headPortrait;
 
 

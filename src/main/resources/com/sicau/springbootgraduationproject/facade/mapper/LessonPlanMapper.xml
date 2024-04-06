@@ -17,13 +17,16 @@
         <result column="version" property="version" />
     </resultMap>
 
+    <resultMap id="countMap" type="java.util.Map">
+        <result property="title" column="title" />
+        <result property="count" column="count" />
+    </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         lesson_plan_id, title, objectives, steps, resources, creator_id, create_time, last_update_time, isDelete, share_state, version
     </sql>
-    <select id="getCountLessonPlan"
-            resultType="com.sicau.springbootgraduationproject.facade.entity.LessonPlan">
-        SELECT title,count(*) as 数量 FROM t_lesson_plan GROUP BY title
+    <select id="getCountLessonPlan" resultMap="countMap">
+        SELECT title,count(*) as count FROM t_lesson_plan GROUP BY title
     </select>
 
 </mapper>
