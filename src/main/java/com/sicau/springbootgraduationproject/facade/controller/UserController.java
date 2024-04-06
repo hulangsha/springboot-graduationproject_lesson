@@ -48,10 +48,12 @@ public class UserController {
         String token = jwtComponent.sign(userInfo.getUserName(), userInfo.getPassword());
         List<UserRolePermission> userRoleAndPermission = userService.getUserRoleAndPermission(user.getUserId());
         Integer roleId = userRoleAndPermission.get(0).getRoleId();
+        String roleName = userRoleAndPermission.get(0).getRoleName();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("token", token);
         jsonObject.put("user", user);
         jsonObject.put("roleId", roleId);
+        jsonObject.put("roleName", roleName);
         return new Result<>().success().put(jsonObject);
     }
 

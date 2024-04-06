@@ -3,6 +3,8 @@ package com.sicau.springbootgraduationproject.facade.service;
 import com.sicau.springbootgraduationproject.facade.entity.CountUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface CountUserService extends IService<CountUser> {
 
+    List<CountUser> getVisual();
 }
