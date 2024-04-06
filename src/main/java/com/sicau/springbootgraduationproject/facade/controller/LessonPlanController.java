@@ -2,27 +2,19 @@ package com.sicau.springbootgraduationproject.facade.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sicau.springbootgraduationproject.common.component.CommonCode;
 import com.sicau.springbootgraduationproject.common.result.PageResult;
 import com.sicau.springbootgraduationproject.common.result.Result;
 import com.sicau.springbootgraduationproject.facade.entity.LessonPlan;
-import com.sicau.springbootgraduationproject.facade.entity.User;
 import com.sicau.springbootgraduationproject.facade.service.LessonPlanService;
 import com.sicau.springbootgraduationproject.facade.service.UserService;
 import com.sicau.springbootgraduationproject.facade.vo.LessonPlanInfo;
 import com.sicau.springbootgraduationproject.facade.vo.QueryLessonPlan;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -85,8 +77,8 @@ public class LessonPlanController {
         return result ? new Result<>().success().put(result) : new Result<>().fail();
     }
 
-    @PostMapping("/lessonPlanType")
-    @ApiOperation("首页用户可视化查询，统计教案类型，不用参数")
+    @GetMapping("/lessonPlanType")
+    @ApiOperation(tags = "首页", value = "首页用户可视化查询，统计教案类型，不用参数")
     public Result<?> countLessonPlanType() {
         List<LessonPlan> result = null;
         try {
