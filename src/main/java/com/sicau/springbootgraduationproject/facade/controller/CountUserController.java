@@ -40,18 +40,6 @@ public class CountUserController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        JSONObject jsonObject = new JSONObject();
-        ArrayList<Integer> downloadsList = new ArrayList<>();
-        ArrayList<Integer> pageViewList = new ArrayList<>();
-        ArrayList<Integer> theMonthList = new ArrayList<>();
-        for (CountUser c: result) {
-            downloadsList.add(c.getDownloads());
-            pageViewList.add(c.getPageView());
-            theMonthList.add(c.getTheMonth());
-        }
-        jsonObject.put("downloadsList",downloadsList);
-        jsonObject.put("pageViewList",pageViewList);
-        jsonObject.put("theMonthList",theMonthList);
-        return new Result<>().success().put(jsonObject);
+        return new Result<>().success().put(result);
     }
 }
