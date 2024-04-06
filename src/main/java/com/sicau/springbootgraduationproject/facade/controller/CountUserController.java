@@ -1,6 +1,7 @@
 package com.sicau.springbootgraduationproject.facade.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.sicau.springbootgraduationproject.common.result.Result;
 import com.sicau.springbootgraduationproject.facade.entity.CountUser;
 import com.sicau.springbootgraduationproject.facade.service.CountUserService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,13 +33,25 @@ public class CountUserController {
 
     @GetMapping("/visual")
     @ApiOperation("可视化数据API，无需参数，直接访问接口即可拿到数据")
-    public List<CountUser> getVisual() {
+    public Result<?> getVisual() {
         List<CountUser> result = null;
         try {
             result = countUserService.getVisual();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return result;
+        JSONObject jsonObject = new JSONObject();
+        ArrayList<Integer> downloadsList = new ArrayList<>();
+        ArrayList<Integer> pageViewList = new ArrayList<>();
+        ArrayList<Integer> theMonthList = new ArrayList<>();
+        for (CountUser c: result) {
+            downloadsList.add(c.getDownloads());
+            pageViewList.add(c.getPageView());
+            theMonthList.add(c.getTheMonth());
+        }
+        jsonObject.put("downloadsList",downloadsList);
+        jsonObject.put("pageViewList",pageViewList);
+        jsonObject.put("theMonthList",theMonthList);
+        return new Result<>().success().put(jsonObject);
     }
 }
