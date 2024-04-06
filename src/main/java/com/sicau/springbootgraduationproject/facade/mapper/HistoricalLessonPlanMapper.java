@@ -2,6 +2,7 @@ package com.sicau.springbootgraduationproject.facade.mapper;
 
 import com.sicau.springbootgraduationproject.facade.entity.HistoricalLessonPlan;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sicau.springbootgraduationproject.facade.vo.LessonPlanInfo;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface HistoricalLessonPlanMapper extends BaseMapper<HistoricalLessonPlan> {
 
+    boolean addLessonPlan(LessonPlanInfo oldLessonPlan);
 }

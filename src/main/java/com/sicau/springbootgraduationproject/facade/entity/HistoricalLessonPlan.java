@@ -73,5 +73,29 @@ public class HistoricalLessonPlan implements Serializable {
     @TableField("isDelete")
     private String isDelete;
 
+    /**
+     * 教案标题
+     */
+    @TableField("title")
+    private String title;
+
+    /**
+     * 教学目标
+     */
+    @TableField("objectives")
+    private String objectives;
+
+    /**
+     * 教学步骤
+     */
+    @TableField("steps")
+    private String steps;
+
+    /**
+     * 教学资源
+     */
+    @TableField("resources")
+    private String resources;
+
 
 }

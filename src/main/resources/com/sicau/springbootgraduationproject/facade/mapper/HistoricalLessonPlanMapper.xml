@@ -12,11 +12,20 @@
         <result column="update_time" property="updateTime" />
         <result column="updater_id" property="updaterId" />
         <result column="isDelete" property="isDelete" />
+        <result column="title" property="title" />
+        <result column="objectives" property="objectives" />
+        <result column="steps" property="steps" />
+        <result column="resources" property="resources" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         historical_lesson_plan_id, lesson_plan_id, version, create_time, creator_id, update_time, updater_id, isDelete
     </sql>
+    <insert id="addLessonPlan" parameterType="com.sicau.springbootgraduationproject.facade.vo.LessonPlanInfo">
+        insert into t_historical_lesson_plan (lesson_plan_id, version, create_time, creator_id, isDelete, title, objectives, steps, resources)
+        values
+            (#{lessonPlanId}, #{version}, NOW(), #{creatorId}, #{isDelete}, #{title}, #{objectives}, #{steps}, #{resources})
+    </insert>
 
 </mapper>

@@ -31,13 +31,13 @@ public class CountUserController {
 
     @GetMapping("/visual")
     @ApiOperation("可视化数据API，无需参数，直接访问接口即可拿到数据")
-    public Result<?> getVisual() {
+    public List<CountUser> getVisual() {
         List<CountUser> result = null;
         try {
             result = countUserService.getVisual();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return new Result<>().success().put(result);
+        return result;
     }
 }

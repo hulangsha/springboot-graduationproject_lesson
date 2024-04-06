@@ -4,7 +4,8 @@ public enum CommonCode {
     SUCCESS(200, "请求成功"),
     Fail_SERVER(500,"服务器出错"),
     Fail_CLIENT(400, "请求出错"),
-    UNAUTHORIZED(401,"没有操作权限")
+    UNAUTHORIZED(401,"没有操作权限"),
+    CONST_NUMBER_ONE(1, "常量1")
     ;
     /**
     * 请求成功

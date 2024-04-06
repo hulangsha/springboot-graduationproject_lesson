@@ -2,9 +2,12 @@ package com.sicau.springbootgraduationproject.facade.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sicau.springbootgraduationproject.common.component.CommonCode;
 import com.sicau.springbootgraduationproject.common.result.Result;
+import com.sicau.springbootgraduationproject.facade.entity.HistoricalLessonPlan;
 import com.sicau.springbootgraduationproject.facade.entity.LessonPlan;
 import com.sicau.springbootgraduationproject.facade.entity.User;
+import com.sicau.springbootgraduationproject.facade.mapper.HistoricalLessonPlanMapper;
 import com.sicau.springbootgraduationproject.facade.mapper.LessonPlanMapper;
 import com.sicau.springbootgraduationproject.facade.service.LessonPlanService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -31,6 +34,9 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
 
     @Autowired
     private LessonPlanMapper lessonPlanMapper;
+
+    @Autowired
+    private HistoricalLessonPlanMapper historicalLessonPlanMapper;
     @Override
     public Page<LessonPlan> getLessonPlanPage(QueryLessonPlan queryLessonPlan) {
         Subject currentUser = SecurityUtils.getSubject();
@@ -51,8 +57,28 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
 
     @Override
     public boolean getUpdateLessonPlan(LessonPlanInfo lessonPlanInfo) {
+        Integer oldVersion = lessonPlanInfo.getVersion();
+        Integer newVersion = oldVersion + CommonCode.CONST_NUMBER_ONE.getCode();
+        Integer lessonPlanId = lessonPlanInfo.getLessonPlanId();
+        LessonPlanInfo newLessonPlanInfo = lessonPlanInfo;
+        QueryWrapper<LessonPlan> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("lesson_plan_id", lessonPlanId);
+        LessonPlan oldLessonPlan = lessonPlanMapper.selectOne(queryWrapper);
+        lessonPlanInfo.setLessonPlanId(oldLessonPlan.getLessonPlanId());
+        lessonPlanInfo.setVersion(oldLessonPlan.getVersion());
+        lessonPlanInfo.setCreatorId(oldLessonPlan.getCreatorId());
+        lessonPlanInfo.setIsDelete(oldLessonPlan.getIsDelete());
+        lessonPlanInfo.setTitle(oldLessonPlan.getTitle());
+        lessonPlanInfo.setObjectives(oldLessonPlan.getObjectives());
+        lessonPlanInfo.setSteps(oldLessonPlan.getSteps());
+        lessonPlanInfo.setResources(oldLessonPlan.getResources());
+        //修改教案之前先向历史教案表插入数据
+        boolean historicalResult = historicalLessonPlanMapper.addLessonPlan(lessonPlanInfo);
         LessonPlan lessonPlan = new LessonPlan();
-        BeanUtils.copyProperties(lessonPlanInfo, lessonPlan);
+        lessonPlanInfo.setVersion(newVersion);
+        if (historicalResult) {
+            BeanUtils.copyProperties(newLessonPlanInfo, lessonPlan);
+        }
         return this.updateById(lessonPlan);
     }
 

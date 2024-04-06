@@ -1,5 +1,6 @@
 package com.sicau.springbootgraduationproject.facade.vo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -68,6 +69,16 @@ public class LessonPlanInfo implements Serializable {
      * 是否删除，0删除，1不删除
      */
     private String isDelete;
+
+    /**
+     * 是否共享，0共享，1不共享
+     */
+    private String shareState;
+
+    /**
+     * 教案版本
+     */
+    private Integer version;
 
 
 

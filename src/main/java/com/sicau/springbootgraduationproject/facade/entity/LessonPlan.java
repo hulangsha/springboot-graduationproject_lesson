@@ -89,8 +89,14 @@ public class LessonPlan implements Serializable {
     /**
      * 是否共享，0共享，1不共享
      */
-    @TableField("shareState")
+    @TableField("share_state")
     private String shareState;
+
+    /**
+     * 教案版本
+     */
+    @TableField("version")
+    private Integer version;
 
 
 }
