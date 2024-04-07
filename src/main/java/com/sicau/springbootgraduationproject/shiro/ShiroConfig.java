@@ -49,6 +49,25 @@ public class ShiroConfig {
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         //放行请求
         filterChainDefinitionMap.put("/api/user/login", "anon");
+        // 放行Swagger相关访问
+        filterChainDefinitionMap.put("/docs", "anon");
+        filterChainDefinitionMap.put("/swagger-ui.html", "anon");
+        filterChainDefinitionMap.put("/webjars/springfox-swagger-ui/**", "anon");
+        filterChainDefinitionMap.put("/swagger-resources/**", "anon");
+        filterChainDefinitionMap.put("/v2/**", "anon");
+        filterChainDefinitionMap.put("/webjars/**", "anon");
+        filterChainDefinitionMap.put("/swagger-ui", "anon");
+        filterChainDefinitionMap.put("/swagger-resources/**", "anon");
+        filterChainDefinitionMap.put("/swagger/**", "anon");
+        filterChainDefinitionMap.put("/swagger/**", "anon");
+        filterChainDefinitionMap.put("/swagger2/**", "anon");
+        filterChainDefinitionMap.put("/swagger*", "anon");
+        filterChainDefinitionMap.put("/swagger*/**", "anon");
+        filterChainDefinitionMap.put("/doc.html", "anon");
+
+
+
+
         //拦截剩下的其他请求
         filterChainDefinitionMap.put("/**", "authc");
         //设置拦截规则给shiro的拦截链工厂
