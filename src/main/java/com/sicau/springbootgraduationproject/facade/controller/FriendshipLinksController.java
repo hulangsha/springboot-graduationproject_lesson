@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * <p>
  * 友情链接表 前端控制器
@@ -29,7 +31,7 @@ public class FriendshipLinksController {
     @GetMapping("/link")
     @ApiOperation("友情链接模块，不需要参数")
     public Result<?> getFriendShipLink() {
-        FriendshipLinks result = friendshipLinksService.getFriendShipLink();
+        List<FriendshipLinks> result = friendshipLinksService.getFriendShipLink();
         return new Result<>().success().put(result);
     }
 }

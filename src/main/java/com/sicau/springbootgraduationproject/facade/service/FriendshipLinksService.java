@@ -3,6 +3,8 @@ package com.sicau.springbootgraduationproject.facade.service;
 import com.sicau.springbootgraduationproject.facade.entity.FriendshipLinks;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 友情链接表 服务类
@@ -13,5 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface FriendshipLinksService extends IService<FriendshipLinks> {
 
-    FriendshipLinks getFriendShipLink();
+    List<FriendshipLinks> getFriendShipLink();
 }

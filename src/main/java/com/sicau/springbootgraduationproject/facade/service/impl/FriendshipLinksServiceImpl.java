@@ -7,6 +7,8 @@ import com.sicau.springbootgraduationproject.facade.service.FriendshipLinksServi
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 友情链接表 服务实现类
@@ -19,8 +21,8 @@ import org.springframework.stereotype.Service;
 public class FriendshipLinksServiceImpl extends ServiceImpl<FriendshipLinksMapper, FriendshipLinks> implements FriendshipLinksService {
 
     @Override
-    public FriendshipLinks getFriendShipLink() {
+    public List<FriendshipLinks> getFriendShipLink() {
         QueryWrapper<FriendshipLinks> queryWrapper = new QueryWrapper<>();
-        return this.getOne(queryWrapper);
+        return this.list(queryWrapper);
     }
 }
