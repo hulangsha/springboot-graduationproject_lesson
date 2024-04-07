@@ -20,4 +20,6 @@ public interface UserService extends IService<User> {
     User getUser(UserInfo userInfo);
 
     List<UserRolePermission> getUserRoleAndPermission(Integer userId);
+
+    User getUserByUserName(UserInfo userInfo);
 }

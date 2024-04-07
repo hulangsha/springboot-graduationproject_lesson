@@ -29,7 +29,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public User getUser(UserInfo userInfo) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("user_name", userInfo.getUserName()).eq("password", userInfo.getPassword());
-
         return this.getOne(wrapper);
     }
 
@@ -38,5 +37,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return userMapper.getUserRoleAndPermissionList(userId);
     }
 
-
+    @Override
+    public User getUserByUserName(UserInfo userInfo) {
+        QueryWrapper<User> queryWrapper = null;
+        try {
+            queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("user_name", userInfo.getUserName());
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new RuntimeException(e);
+        }
+        return this.getOne(queryWrapper);
+    }
 }

@@ -67,6 +67,8 @@ swagger:
   name: MagicAPI接口中心
   location: /v2/api-docs/magic-api/swagger2.json
   basePackage: com.sicau.springbootgraduationproject.facade.controller
+  username: admin
+  password: 123456
 
 #配置日志打印
 logging:
@@ -98,3 +100,9 @@ mybatis-plus:
     #驼峰下划线转换
     map-underscore-to-camel-case: true
     cache-enabled: false
+
+#自定义属性
+#custom:
+#  jwt:
+#    tokenHeader: SevenHee-Token
+#    expire_time: 1800000

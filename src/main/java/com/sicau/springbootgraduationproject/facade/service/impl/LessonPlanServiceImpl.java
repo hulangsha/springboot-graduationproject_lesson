@@ -43,7 +43,7 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
         Subject currentUser = SecurityUtils.getSubject();
 
         if (!currentUser.isAuthenticated()) {
-            throw new RuntimeException();
+            throw new RuntimeException("没有获取到用户");
         }
         User user = (User) currentUser.getPrincipal();
         Integer userId = user.getUserId();
@@ -51,7 +51,7 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
         page.setCurrent(queryLessonPlan.getCurrentPage());
         page.setSize(queryLessonPlan.getPageSize());
         QueryWrapper<LessonPlan> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("creator_id",1);
+        queryWrapper.eq("creator_id",userId);
         return this.page(page, queryWrapper);
     }
 

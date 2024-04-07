@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.Calendar;
 import java.util.Date;
 @Component
-public class JwtComponent {
+public class JwtUtil {
     @Value("${system.expireTime}")
     private Integer expireTime;
 
@@ -21,7 +21,7 @@ public class JwtComponent {
      * @param secret
      * @return
      */
-    public String sign(String userName,String secret){
+    public String sign(String userName, String secret){
 
         try {
             Algorithm algorithm = Algorithm.HMAC256(userName + secret);
@@ -30,6 +30,7 @@ public class JwtComponent {
             Date time = calendar.getTime();
             return JWT.create().withClaim("userName",userName).withExpiresAt(time).sign(algorithm);
         } catch (Exception e) {
+            System.out.println("获取token的值为空所报的异常:{}" + e);
             return null;
         }
 
@@ -43,6 +44,7 @@ public class JwtComponent {
     public String getUserName(String token){
         try {
             DecodedJWT jwt = JWT.decode(token);
+            String userName = jwt.getClaim("userName").asString();
             return jwt.getClaim("userName").asString();
         } catch (JWTDecodeException e) {
             return null;

@@ -1,15 +1,16 @@
 package com.sicau.springbootgraduationproject.shiro;
 
-
-import com.sicau.springbootgraduationproject.common.component.JwtComponent;
+import com.alibaba.druid.util.StringUtils;
+import com.sicau.springbootgraduationproject.common.component.JwtUtil;
+import com.sicau.springbootgraduationproject.common.component.SpringContextHolder;
 import com.sicau.springbootgraduationproject.facade.entity.User;
 import com.sicau.springbootgraduationproject.facade.service.UserService;
 import com.sicau.springbootgraduationproject.facade.vo.UserInfo;
 import com.sicau.springbootgraduationproject.facade.vo.UserRolePermission;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
-
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -17,18 +18,40 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.util.Collections;
+import javax.annotation.Resource;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
+@Component
 public class UserRealm extends AuthorizingRealm {
-    @Autowired
-    private JwtComponent jwtComponent;
-    @Autowired
-    private UserService userService;
+
+//    @Autowired
+//    private JwtUtil jwtUtil;
+//
+//    private UserService userService;
+//    @Autowired
+//    public void setUserService(UserService userService) {
+//        this.userService = userService;
+//    }
+
+//    @Resource
+//    private JwtUtil jwtUtil;
+//
+//    @Resource
+//    private UserService userService;
+
+    /**
+     * 支持Token
+     * @param token
+     * @return
+     */
+    @Override
+    public boolean supports(AuthenticationToken token) {
+        return token instanceof JwtToken;
+    }
 
     /**
      * 授权
@@ -37,14 +60,17 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        User user = (User) principalCollection.getPrimaryPrincipal();
+        System.out.println("开始授权~~~~~~~~~~~~~~");
+        //获取用户名
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
         if (Objects.isNull(user)) {
-            throw new AuthorizationException();
+            throw new AuthorizationException("该用户没有权限");
         }
         Integer userId = user.getUserId();
         if (0 == userId || null == userId) {
-            throw new AuthorizationException();
+            throw new AuthorizationException("该用户没有权限");
         }
+        UserService userService = SpringContextHolder.getBean(UserService.class);
         List<UserRolePermission> userRolePermissionList = userService.getUserRoleAndPermission(userId);
         if (CollectionUtils.isEmpty(userRolePermissionList)) {
             throw new AuthorizationException();
@@ -69,27 +95,41 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+        System.out.println("开始身份认证~~~~~~~~~~~");
+        //获取token
         String token = authenticationToken.getPrincipal().toString();
-        String userName = jwtComponent.getUserName(token);
+//        JwtUtil jwtUtil = new JwtUtil();
+        //获取用户名
+        String userName = null;
+        System.out.println("token的值UserRealm: " +token);
+        try {
+            JwtUtil jwtUtil = SpringContextHolder.getBean(JwtUtil.class);
+            userName = jwtUtil.getUserName(token);
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new AuthenticationException(e + "token拼写错误，或者值为空");
+        }
+        if (StringUtils.isEmpty(userName)) {
+            throw new AuthenticationException("token无效");
+        }
+
         UserInfo userInfo = new UserInfo();
         userInfo.setUserName(userName);
-        User user = userService.getUser(userInfo);
+        User user = null;
+        try {
+            UserService userService = SpringContextHolder.getBean(UserService.class);
+            user = userService.getUserByUserName(userInfo);
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new RuntimeException(e);
+        }
 
         if (Objects.isNull(user)){
-            throw new AuthenticationException();
+            throw new AuthenticationException("用户不存在");
         }
             SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, token, this.getName());
             return info;
 
     }
 
-    /**
-     * 支持Token
-     * @param token
-     * @return
-     */
-    @Override
-    public boolean supports(AuthenticationToken token) {
-        return token instanceof JWTToken;
-    }
 }
