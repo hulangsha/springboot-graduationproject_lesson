@@ -2,6 +2,8 @@ package com.sicau.springbootgraduationproject.facade.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sicau.springbootgraduationproject.common.component.CommonCode;
+import com.sicau.springbootgraduationproject.common.result.PageResult;
 import com.sicau.springbootgraduationproject.common.result.Result;
 import com.sicau.springbootgraduationproject.facade.entity.HistoricalLessonPlan;
 import com.sicau.springbootgraduationproject.facade.service.HistoricalLessonPlanService;
@@ -31,11 +33,13 @@ public class HistoricalLessonPlanController {
     @Autowired
     private HistoricalLessonPlanService historicalLessonPlanService;
 
-    @PostMapping("getHistoricalPlanPage")
-    @ApiOperation(value = "查询历史教案，必须要用的参数是当前页和每页显示多少条")
-    public Result<?> getHistoricalPlanPage(@RequestBody QueryHistoricalLessonPlan historicalLessonPlanInfo) {
+    @PostMapping("/getHistoricalPlanPage")
+    @ApiOperation(value = "查询历史教案，必须要用的参数是当前页和每页显示多少条,currentPage,pageSize")
+    public PageResult getHistoricalPlanPage(@RequestBody QueryHistoricalLessonPlan historicalLessonPlanInfo) {
         Page<HistoricalLessonPlan> pageResult = historicalLessonPlanService.getHistoricalPlanPage(historicalLessonPlanInfo);
-
-return null;
+        PageResult<HistoricalLessonPlan> result = new PageResult<>(pageResult.getCurrent(), pageResult.getSize(), pageResult.getTotal(), pageResult.getPages(), pageResult.getRecords());
+        result.setCode(CommonCode.SUCCESS.getCode());
+        result.setMsg(CommonCode.SUCCESS.getMessage());
+        return result;
     }
 }

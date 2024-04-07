@@ -16,5 +16,12 @@
     <sql id="Base_Column_List">
         review_id, lesson_plan_id, reviewer_id, comments, review_time, isDelete
     </sql>
+    <select id="queryLessonReviewMapperList"
+            resultType="com.sicau.springbootgraduationproject.facade.vo.ResultLessonPlanReview">
+        SELECT lpr.review_id,lpr.comments as 评审内容,lpr.review_time, lpr.isDelete, lp.title as 教案名称, u.nickname as 评审人
+        FROM t_lesson_plan_review lpr,t_lesson_plan lp,t_user u
+        WHERE lpr.lesson_plan_id = lp.lesson_plan_id
+          and lpr.review_id = u.user_id
+    </select>
 
 </mapper>

@@ -2,6 +2,9 @@ package com.sicau.springbootgraduationproject.facade.mapper;
 
 import com.sicau.springbootgraduationproject.facade.entity.LessonPlanReview;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sicau.springbootgraduationproject.facade.vo.ResultLessonPlanReview;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface LessonPlanReviewMapper extends BaseMapper<LessonPlanReview> {
 
+    List<ResultLessonPlanReview> queryLessonReviewMapperList();
 }

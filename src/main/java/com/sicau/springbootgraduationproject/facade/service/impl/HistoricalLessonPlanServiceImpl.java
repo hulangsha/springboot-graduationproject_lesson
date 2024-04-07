@@ -1,5 +1,6 @@
 package com.sicau.springbootgraduationproject.facade.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sicau.springbootgraduationproject.facade.entity.HistoricalLessonPlan;
 import com.sicau.springbootgraduationproject.facade.mapper.HistoricalLessonPlanMapper;
@@ -23,6 +24,8 @@ public class HistoricalLessonPlanServiceImpl extends ServiceImpl<HistoricalLesso
     public Page<HistoricalLessonPlan> getHistoricalPlanPage(QueryHistoricalLessonPlan historicalLessonPlanInfo) {
         Page<HistoricalLessonPlan> page = new Page<>();
         page.setCurrent(historicalLessonPlanInfo.getCurrentPage());
-        return null;
+        page.setSize(historicalLessonPlanInfo.getPageSize());
+        QueryWrapper<HistoricalLessonPlan> queryWrapper = new QueryWrapper<>();
+        return this.page(page, queryWrapper);
     }
 }
