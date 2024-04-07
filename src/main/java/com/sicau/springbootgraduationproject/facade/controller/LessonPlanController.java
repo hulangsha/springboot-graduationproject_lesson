@@ -14,6 +14,7 @@ import com.sicau.springbootgraduationproject.facade.vo.QueryLessonPlan;
 import com.sicau.springbootgraduationproject.facade.vo.UserInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/lessonPlan")
 @Api(tags = "教案模块")
+@Slf4j
 public class LessonPlanController {
 
     @Autowired
@@ -45,11 +47,11 @@ public class LessonPlanController {
         PageResult<LessonPlan> pageResult = null;
         try {
             Page<LessonPlan> page = lessonPlanService.getLessonPlanPage(queryLessonPlan);
-            pageResult = new PageResult<>(queryLessonPlan.getCurrentPage(), queryLessonPlan.getPageSize(), page.getTotal(), page.getPages(), page.getRecords());
+            pageResult = new PageResult<>(page.getCurrent(), page.getSize(), page.getTotal(), page.getPages(), page.getRecords());
             pageResult.setCode(CommonCode.SUCCESS.getCode());
             pageResult.setMsg(CommonCode.SUCCESS.getMessage());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.info(String.valueOf(e));
         }
         return pageResult;
     }

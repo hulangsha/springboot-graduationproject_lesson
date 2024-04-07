@@ -1,7 +1,9 @@
 package com.sicau.springbootgraduationproject.facade.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sicau.springbootgraduationproject.facade.entity.HistoricalLessonPlan;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sicau.springbootgraduationproject.facade.vo.QueryHistoricalLessonPlan;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface HistoricalLessonPlanService extends IService<HistoricalLessonPlan> {
 
+    Page<HistoricalLessonPlan> getHistoricalPlanPage(QueryHistoricalLessonPlan historicalLessonPlanInfo);
 }

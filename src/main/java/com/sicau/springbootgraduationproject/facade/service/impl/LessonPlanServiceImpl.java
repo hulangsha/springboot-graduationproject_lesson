@@ -44,7 +44,6 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
 
         if (!currentUser.isAuthenticated()) {
             throw new RuntimeException();
-
         }
         User user = (User) currentUser.getPrincipal();
         Integer userId = user.getUserId();
