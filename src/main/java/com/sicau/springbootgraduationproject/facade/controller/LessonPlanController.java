@@ -2,6 +2,7 @@ package com.sicau.springbootgraduationproject.facade.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sicau.springbootgraduationproject.common.component.CommonCode;
 import com.sicau.springbootgraduationproject.common.result.PageResult;
@@ -79,7 +80,7 @@ public class LessonPlanController {
     }
 
     @GetMapping("/lessonPlanType")
-    @ApiOperation(tags = "首页", value = "首页用户可视化查询，统计教案类型，不用参数")
+    @ApiOperation(tags = "首页", value = "统计教案类型", notes = "首页用户可视化查询，统计教案类型，不用参数")
     public Result<?> countLessonPlanType() {
         List<LessonPlan> result = null;
         try {
@@ -149,6 +150,16 @@ public class LessonPlanController {
             return new Result<>().fail().put(resultJSON);
         }
         return new Result<>().success().put(result);
+    }
+
+    @GetMapping("/deleteLessonPlan")
+    @ApiOperation(value = "删除教案", notes = "只需要传入教案的id即可")
+    public Result<?> getLessonPlanDelete(@RequestParam("lessonPlanId") Integer id) {
+        boolean result = lessonPlanService.getLessonPlanDelete(id);
+        if (result) {
+            return new Result<>().success().put(result);
+        }
+        return new Result<>().fail();
     }
 
 }

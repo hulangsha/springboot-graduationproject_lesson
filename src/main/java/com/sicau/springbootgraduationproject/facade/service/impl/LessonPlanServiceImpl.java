@@ -133,4 +133,16 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
         BeanUtils.copyProperties(lessonPlanInfo, lessonPlan);
         return this.updateById(lessonPlan);
     }
+
+    @Override
+    public boolean getLessonPlanDelete(Integer id) {
+        LessonPlan lessonPlan = lessonPlanMapper.selectById(id);
+
+        if (null == lessonPlan) {
+            return false;
+        }
+        lessonPlan.setIsDelete("0");
+        lessonPlanMapper.updateById(lessonPlan);
+        return true;
+    }
 }
