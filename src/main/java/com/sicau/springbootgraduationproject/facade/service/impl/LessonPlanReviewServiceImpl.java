@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -47,39 +48,9 @@ public class LessonPlanReviewServiceImpl extends ServiceImpl<LessonPlanReviewMap
 
 
     @Override
-    public List<ResultLessonPlanReview> getReviewPage() {
-        //评审人
-        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
-        List<User> users = userMapper.selectList(userQueryWrapper);
+    public List<LessonPlanReview> getReviewPage() {
 
-        //教案
-        QueryWrapper<LessonPlan> lessonPlanQueryWrapper = new QueryWrapper<>();
-        List<LessonPlan> lessonPlans = lessonPlanMapper.selectList(lessonPlanQueryWrapper);
-
-        //教案评审
-        QueryWrapper<LessonPlanReview> lessonPlanReviewQueryWrapper = new QueryWrapper<>();
-        List<LessonPlanReview> lessonPlanReviews = lessonPlanReviewMapper.selectList(lessonPlanReviewQueryWrapper);
-
-        List<LessonPlan> lessonPlanList = lessonPlans.stream()
-                .filter(lessonPlan -> lessonPlanReviews.stream()
-                        .map(LessonPlanReview::getReviewerId)
-                        .anyMatch(lessonPlanId -> lessonPlanId.equals(lessonPlan.getLessonPlanId()))).collect(Collectors.toList());
-
-
-        Iterator<User> userIterator = users.iterator();
-        HashMap<Integer, String> userMap = new HashMap<>();
-        while (userIterator.hasNext()) {
-            userMap.put(userIterator.next().getUserId(),userIterator.next().getNickname());
-        }
-        Iterator<LessonPlan> lessonPlanIterator = lessonPlans.iterator();
-        HashMap<Integer, String> lessonMap = new HashMap<>();
-        while (lessonPlanIterator.hasNext()) {
-            lessonMap.put(lessonPlanIterator.next().getLessonPlanId(), lessonPlanIterator.next().getTitle());
-        }
-        for (LessonPlanReview l:lessonPlanReviews) {
-            userMap.get(l.getReviewerId());
-        }
-        List<ResultLessonPlanReview> list = null;
+        List<LessonPlanReview> list = null;
         try {
             list = lessonPlanReviewMapper.queryLessonReviewMapperList();
         }catch (Exception e) {

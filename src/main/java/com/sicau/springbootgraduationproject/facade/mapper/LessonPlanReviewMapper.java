@@ -16,5 +16,5 @@ import java.util.List;
  */
 public interface LessonPlanReviewMapper extends BaseMapper<LessonPlanReview> {
 
-    List<ResultLessonPlanReview> queryLessonReviewMapperList();
+    List<LessonPlanReview> queryLessonReviewMapperList();
 }

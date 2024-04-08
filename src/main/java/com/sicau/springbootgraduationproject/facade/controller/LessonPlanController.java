@@ -115,7 +115,7 @@ public class LessonPlanController {
         List<LessonPlan> shareLessonPlanList = lessonPlanService.getShareLessonPlan();
         JSONObject result = new JSONObject();
         if (shareLessonPlanList.isEmpty()) {
-            return new Result<>().fail().put(result);
+            return new Result<>().fail();
         }
         result.put("list", shareLessonPlanList);
         return new Result<>().success().put(result);
