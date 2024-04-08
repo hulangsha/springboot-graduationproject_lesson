@@ -1,7 +1,10 @@
 package com.sicau.springbootgraduationproject.facade.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sicau.springbootgraduationproject.facade.entity.Teacher;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sicau.springbootgraduationproject.facade.vo.QueryTeacher;
+import com.sicau.springbootgraduationproject.facade.vo.TeacherInfo;
 
 import java.util.List;
 
@@ -16,4 +19,10 @@ import java.util.List;
 public interface TeacherService extends IService<Teacher> {
 
     List<Teacher> getTeacherList();
+
+    Page<Teacher> getSearchTeacher(QueryTeacher queryTeacher);
+
+    boolean getAddTeacher(TeacherInfo teacherInfo);
+
+    boolean getDeleteTeacher(Integer id);
 }

@@ -1,16 +1,18 @@
 package com.sicau.springbootgraduationproject.facade.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sicau.springbootgraduationproject.common.component.CommonCode;
+import com.sicau.springbootgraduationproject.common.result.PageResult;
 import com.sicau.springbootgraduationproject.common.result.Result;
 import com.sicau.springbootgraduationproject.facade.entity.Teacher;
 import com.sicau.springbootgraduationproject.facade.service.TeacherService;
+import com.sicau.springbootgraduationproject.facade.vo.QueryTeacher;
+import com.sicau.springbootgraduationproject.facade.vo.TeacherInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,4 +38,41 @@ public class TeacherController {
         List<Teacher> teacherList = teacherService.getTeacherList();
         return new Result<>().success().put(teacherList);
     }
+
+    @PostMapping("getTeacherList")
+    @ApiOperation(tags = "教师管理模块", value = "查询教师信息", notes = "查询教师，需要分页")
+    public PageResult searchTeacher(@RequestBody QueryTeacher queryTeacher) {
+        Page<Teacher> page = teacherService.getSearchTeacher(queryTeacher);
+        PageResult<Teacher> pageResult = new PageResult<>(page.getCurrent(), page.getSize(), page.getTotal(), page.getPages(), page.getRecords());
+        pageResult.setCode(CommonCode.SUCCESS.getCode());
+        pageResult.setMsg(CommonCode.SUCCESS.getMessage());
+        return pageResult;
+
+    }
+
+    @PostMapping("getAddTeacher")
+    @ApiOperation(tags = "教师管理模块", value = "添加教师", notes = "添加教师")
+    public Result<?> searchTeacher(@RequestBody TeacherInfo teacherInfo) {
+        boolean result = teacherService.getAddTeacher(teacherInfo);
+        if (result) {
+            return new Result<>().success().put(result);
+        }
+
+        return new Result<>().fail();
+    }
+
+    @GetMapping("getDeleteTeacher")
+    @ApiOperation(tags = "教师管理模块", value = "删除教师", notes = "删除教师,需要传入教师的id")
+    public Result<?> deleteTeacher(@RequestParam("teacherId") Integer id) {
+        boolean result = teacherService.getDeleteTeacher(id);
+        if (result) {
+            return new Result<>().success().put(result);
+        }
+
+        return new Result<>().fail();
+    }
+
+
+
+
 }
