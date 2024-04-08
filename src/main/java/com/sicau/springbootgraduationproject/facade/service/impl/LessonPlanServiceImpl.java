@@ -103,4 +103,22 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
     }
 
 
+    @Override
+    public List<LessonPlan> getShareLessonPlan() {
+        QueryWrapper<LessonPlan> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("share_state", CommonCode.CONST_NUMBER_ZERO.getCode());
+        return this.list(queryWrapper);
+    }
+
+    @Override
+    public List<LessonPlan> getPersonalLessonPlan() {
+        Subject subject = SecurityUtils.getSubject();
+        if (!subject.isAuthenticated()) {
+            throw new RuntimeException("没有获取到用户的信息");
+        }
+        User user = (User) subject.getPrincipal();
+        QueryWrapper<LessonPlan> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("share_state", CommonCode.CONST_NUMBER_ONE.getCode()).eq("creator_id", user.getUserId());
+        return this.list(queryWrapper);
+    }
 }

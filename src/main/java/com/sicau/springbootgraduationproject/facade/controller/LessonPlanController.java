@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -105,4 +106,44 @@ public class LessonPlanController {
         }
         return new Result<>().success().put(result);
     }
+
+    @PostMapping("/shareLessonPlan")
+    @ApiOperation(tags = "查看分享教案模块", value = "查看和分享教案模块页面的共享功能，当点击查看分享教案菜单的时候就会发送请求，查询共享教案信息")
+    /**
+    * @description 查看和分享教案模块的共享教案的功能
+    * @date        2024/4/813:17
+    * @author      huls
+    * @param       
+    * @return      
+    */
+    public Result<?> getShareLessonPlan() {
+        List<LessonPlan> shareLessonPlanList = lessonPlanService.getShareLessonPlan();
+        JSONObject result = new JSONObject();
+        if (shareLessonPlanList.isEmpty()) {
+            result.put("code", CommonCode.Fail_SERVER.getCode());
+            result.put("msg", CommonCode.Fail_SERVER.getMessage());
+            return new Result<>().fail();
+        }
+        result.put("list", shareLessonPlanList);
+        result.put("code", CommonCode.SUCCESS.getCode());
+        result.put("msg", CommonCode.SUCCESS.getMessage());
+        return new Result<>().success().put(result);
+    }
+
+    @PostMapping("/personalLessonPlan")
+    @ApiOperation(tags = "查看分享教案模块", value = "查看和分享教案模块页面的私有化教案功能，当点击查看分享教案菜单的时候就会发送请求，查询私有教案信息")
+    public Result<?> getPersonalLessonPlan() {
+        List<LessonPlan> personalLessonPlan = lessonPlanService.getPersonalLessonPlan();
+        JSONObject result = new JSONObject();
+        if (personalLessonPlan.isEmpty()) {
+            result.put("code", CommonCode.Fail_SERVER.getCode());
+            result.put("msg", CommonCode.Fail_SERVER.getMessage());
+            return new Result<>().fail();
+        }
+        result.put("list", personalLessonPlan);
+        result.put("code", CommonCode.SUCCESS.getCode());
+        result.put("msg", CommonCode.SUCCESS.getMessage());
+        return new Result<>().success().put(result);
+    }
+
 }
