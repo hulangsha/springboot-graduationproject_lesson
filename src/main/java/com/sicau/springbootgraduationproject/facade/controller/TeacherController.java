@@ -31,7 +31,7 @@ public class TeacherController {
     private TeacherService teacherService;
 
     @GetMapping("/searchTeacher")
-    @ApiOperation(tags = "协作共享模块", value = "邀请协作的接口，点击邀请协作，就调用这个接口，不需要任何参数直接请求即可,返回的是教师所有信息，取teacherName即可")
+    @ApiOperation(tags = "协作共享模块", value = "邀请协助人", notes = "邀请协作的接口，点击邀请协作，就调用这个接口，不需要任何参数直接请求即可,返回的是教师所有信息，取teacherName即可")
     public Result<?> getTeacherList() {
         List<Teacher> teacherList = teacherService.getTeacherList();
         return new Result<>().success().put(teacherList);

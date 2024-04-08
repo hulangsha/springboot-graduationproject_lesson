@@ -37,9 +37,11 @@ public interface LessonPlanService extends IService<LessonPlan> {
 
     List<LessonPlan> getLessonPlanCount();
 
-    List<LessonPlan> getTeam(UserInfo userInfo);
+    List<LessonPlan> getTeam();
 
     List<LessonPlan> getShareLessonPlan();
 
     List<LessonPlan> getPersonalLessonPlan();
+
+    boolean changeShareState(LessonPlanInfo lessonPlanInfo);
 }

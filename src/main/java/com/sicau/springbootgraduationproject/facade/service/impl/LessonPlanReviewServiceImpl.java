@@ -22,6 +22,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -47,10 +48,6 @@ public class LessonPlanReviewServiceImpl extends ServiceImpl<LessonPlanReviewMap
 
     @Override
     public List<ResultLessonPlanReview> getReviewPage() {
-        //教案评审
-        QueryWrapper<LessonPlanReview> lessonPlanReviewQueryWrapper = new QueryWrapper<>();
-        List<LessonPlanReview> lessonPlanReviews = lessonPlanReviewMapper.selectList(lessonPlanReviewQueryWrapper);
-
         //评审人
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
         List<User> users = userMapper.selectList(userQueryWrapper);
@@ -58,6 +55,16 @@ public class LessonPlanReviewServiceImpl extends ServiceImpl<LessonPlanReviewMap
         //教案
         QueryWrapper<LessonPlan> lessonPlanQueryWrapper = new QueryWrapper<>();
         List<LessonPlan> lessonPlans = lessonPlanMapper.selectList(lessonPlanQueryWrapper);
+
+        //教案评审
+        QueryWrapper<LessonPlanReview> lessonPlanReviewQueryWrapper = new QueryWrapper<>();
+        List<LessonPlanReview> lessonPlanReviews = lessonPlanReviewMapper.selectList(lessonPlanReviewQueryWrapper);
+
+        List<LessonPlan> lessonPlanList = lessonPlans.stream()
+                .filter(lessonPlan -> lessonPlanReviews.stream()
+                        .map(LessonPlanReview::getReviewerId)
+                        .anyMatch(lessonPlanId -> lessonPlanId.equals(lessonPlan.getLessonPlanId()))).collect(Collectors.toList());
+
 
         Iterator<User> userIterator = users.iterator();
         HashMap<Integer, String> userMap = new HashMap<>();

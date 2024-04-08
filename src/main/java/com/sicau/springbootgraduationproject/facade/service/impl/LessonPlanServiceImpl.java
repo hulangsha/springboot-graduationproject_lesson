@@ -96,9 +96,14 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
     }
 
     @Override
-    public List<LessonPlan> getTeam(UserInfo userInfo) {
+    public List<LessonPlan> getTeam() {
+        Subject subject = SecurityUtils.getSubject();
+        if (!subject.isAuthenticated()) {
+            throw new RuntimeException("没有查询到用户");
+        }
+        User user = (User) subject.getPrincipal();
         QueryWrapper<LessonPlan> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("team", userInfo.getNickname());
+        queryWrapper.eq("team", user.getNickname());
         return this.list(queryWrapper);
     }
 
@@ -120,5 +125,12 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
         QueryWrapper<LessonPlan> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("share_state", CommonCode.CONST_NUMBER_ONE.getCode()).eq("creator_id", user.getUserId());
         return this.list(queryWrapper);
+    }
+
+    @Override
+    public boolean changeShareState(LessonPlanInfo lessonPlanInfo) {
+        LessonPlan lessonPlan = new LessonPlan();
+        BeanUtils.copyProperties(lessonPlanInfo, lessonPlan);
+        return this.updateById(lessonPlan);
     }
 }

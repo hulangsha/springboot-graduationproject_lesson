@@ -11,14 +11,11 @@ import com.sicau.springbootgraduationproject.facade.service.LessonPlanService;
 import com.sicau.springbootgraduationproject.facade.service.UserService;
 import com.sicau.springbootgraduationproject.facade.vo.LessonPlanInfo;
 import com.sicau.springbootgraduationproject.facade.vo.QueryLessonPlan;
-import com.sicau.springbootgraduationproject.facade.vo.UserInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -90,25 +87,23 @@ public class LessonPlanController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-//        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("reslut",result);
         return new Result<>().success().put(result);
     }
 
     @PostMapping("/cooperation")
-    @ApiOperation(tags = "协作共享模块",value = "协作共享模块需要传输的参数必须要有nickname")
-    public Result<?> getTeam(@RequestBody UserInfo userInfo) {
-        List<LessonPlan> result = null;
-        try {
-            result = lessonPlanService.getTeam(userInfo);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+    @ApiOperation(tags = "协作共享模块", value = "协作共享查询", notes = "协作共享模块,不需要参数")
+    public Result<?> getTeam() {
+        List<LessonPlan> lessonPlanList = lessonPlanService.getTeam();
+        JSONObject result = new JSONObject();
+        if (lessonPlanList.isEmpty()) {
+            return new Result<>().fail().put(result);
         }
+        result.put("list", lessonPlanList);
         return new Result<>().success().put(result);
     }
 
     @PostMapping("/shareLessonPlan")
-    @ApiOperation(tags = "查看分享教案模块", value = "查看和分享教案模块页面的共享功能，当点击查看分享教案菜单的时候就会发送请求，查询共享教案信息")
+    @ApiOperation(tags = "查看分享教案模块", value = "共享教案功能", notes = "查看和分享教案模块页面的共享功能，当点击查看分享教案菜单的时候就会发送请求，查询共享教案信息")
     /**
     * @description 查看和分享教案模块的共享教案的功能
     * @date        2024/4/813:17
@@ -120,29 +115,39 @@ public class LessonPlanController {
         List<LessonPlan> shareLessonPlanList = lessonPlanService.getShareLessonPlan();
         JSONObject result = new JSONObject();
         if (shareLessonPlanList.isEmpty()) {
-            result.put("code", CommonCode.Fail_SERVER.getCode());
-            result.put("msg", CommonCode.Fail_SERVER.getMessage());
-            return new Result<>().fail();
+            return new Result<>().fail().put(result);
         }
         result.put("list", shareLessonPlanList);
-        result.put("code", CommonCode.SUCCESS.getCode());
-        result.put("msg", CommonCode.SUCCESS.getMessage());
         return new Result<>().success().put(result);
     }
 
     @PostMapping("/personalLessonPlan")
-    @ApiOperation(tags = "查看分享教案模块", value = "查看和分享教案模块页面的私有化教案功能，当点击查看分享教案菜单的时候就会发送请求，查询私有教案信息")
+    @ApiOperation(tags = "查看分享教案模块", value = "私有化教案功能", notes = "查看和分享教案模块页面的私有化教案功能，当点击查看分享教案菜单的时候就会发送请求，查询私有教案信息")
     public Result<?> getPersonalLessonPlan() {
         List<LessonPlan> personalLessonPlan = lessonPlanService.getPersonalLessonPlan();
         JSONObject result = new JSONObject();
         if (personalLessonPlan.isEmpty()) {
-            result.put("code", CommonCode.Fail_SERVER.getCode());
-            result.put("msg", CommonCode.Fail_SERVER.getMessage());
-            return new Result<>().fail();
+            return new Result<>().fail().put(result);
         }
         result.put("list", personalLessonPlan);
-        result.put("code", CommonCode.SUCCESS.getCode());
-        result.put("msg", CommonCode.SUCCESS.getMessage());
+        return new Result<>().success().put(result);
+    }
+
+    @PostMapping("/shareButton")
+    @ApiOperation(tags = "查看分享教案模块", value = "共享按钮功能", notes = "查看和分享教案模块页面的共享按钮功能，目标是改变教案的共享属性，必须参数是共享状态share_state和教案的lesson_plan_id，不能传入其他参数，就只准传这两个")
+    /**
+    * @description 改变教案状态
+    * @date        2024/4/813:44
+    * @author      huls
+    * @param       lessonPlanInfo
+    * @return      Result<?>
+    */
+    public Result<?> getShareButton(@RequestBody LessonPlanInfo lessonPlanInfo) {
+        boolean result = lessonPlanService.changeShareState(lessonPlanInfo);
+        JSONObject resultJSON = new JSONObject();
+        if (!result) {
+            return new Result<>().fail().put(resultJSON);
+        }
         return new Result<>().success().put(result);
     }
 

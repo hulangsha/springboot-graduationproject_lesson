@@ -38,13 +38,11 @@ public class LessonPlanReviewController {
     private LessonPlanReviewService lessonPlanReviewService;
 
     @PostMapping("/reviewPage")
-    @ApiOperation(value = "教案评审和反馈，必须传的数据是currentPage和pageSize，暂时不可用，先不做")
+    @ApiOperation(value = "教案评审和反馈", notes = "教案评审和反馈，必须传的数据是currentPage和pageSize，暂时不可用，先不做")
     public Result<?> getReviewPage() {
         List<ResultLessonPlanReview> result = lessonPlanReviewService.getReviewPage();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("list", result);
-        jsonObject.put("code", CommonCode.SUCCESS.getCode());
-        jsonObject.put("msg", CommonCode.SUCCESS.getMessage());
         return new Result<>().success().put(jsonObject);
     }
 }
