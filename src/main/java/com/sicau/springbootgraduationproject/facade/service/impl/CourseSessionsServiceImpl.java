@@ -1,10 +1,13 @@
 package com.sicau.springbootgraduationproject.facade.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sicau.springbootgraduationproject.facade.entity.CourseSessions;
 import com.sicau.springbootgraduationproject.facade.mapper.CourseSessionsMapper;
 import com.sicau.springbootgraduationproject.facade.service.CourseSessionsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class CourseSessionsServiceImpl extends ServiceImpl<CourseSessionsMapper, CourseSessions> implements CourseSessionsService {
 
+    @Override
+    public List<CourseSessions> searchCourseSession() {
+        QueryWrapper<CourseSessions> queryWrapper = new QueryWrapper<>();
+        return this.list(queryWrapper);
+    }
 }

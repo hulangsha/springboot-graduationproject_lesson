@@ -145,4 +145,10 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
         lessonPlanMapper.updateById(lessonPlan);
         return true;
     }
+
+    @Override
+    public List<LessonPlan> searchLessonPlan() {
+        QueryWrapper<LessonPlan> queryWrapper = new QueryWrapper<>();
+        return this.list(queryWrapper);
+    }
 }

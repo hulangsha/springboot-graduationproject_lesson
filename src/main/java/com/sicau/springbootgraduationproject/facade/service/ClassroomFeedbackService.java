@@ -1,7 +1,10 @@
 package com.sicau.springbootgraduationproject.facade.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sicau.springbootgraduationproject.facade.entity.ClassroomFeedback;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sicau.springbootgraduationproject.facade.vo.ClassroomFeedbackInfo;
+import com.sicau.springbootgraduationproject.facade.vo.QueryClassroomFeedback;
 
 /**
  * <p>
@@ -13,4 +16,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ClassroomFeedbackService extends IService<ClassroomFeedback> {
 
+    Page<ClassroomFeedback> searchFeedbackPage(QueryClassroomFeedback queryClassroomFeedback);
+
+    boolean addFeedback(ClassroomFeedbackInfo classroomFeedbackInfo);
+
+    boolean updateFeedback(ClassroomFeedbackInfo classroomFeedbackInfo);
 }

@@ -8,16 +8,13 @@ import com.sicau.springbootgraduationproject.common.result.PageResult;
 import com.sicau.springbootgraduationproject.common.result.Result;
 import com.sicau.springbootgraduationproject.facade.entity.LessonPlanReview;
 import com.sicau.springbootgraduationproject.facade.service.LessonPlanReviewService;
+import com.sicau.springbootgraduationproject.facade.vo.ClassroomFeedbackInfo;
 import com.sicau.springbootgraduationproject.facade.vo.QueryLessonPlanReview;
 import com.sicau.springbootgraduationproject.facade.vo.ResultLessonPlanReview;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,11 +35,32 @@ public class LessonPlanReviewController {
     private LessonPlanReviewService lessonPlanReviewService;
 
     @PostMapping("/reviewPage")
-    @ApiOperation(value = "教案评审和反馈", notes = "教案评审和反馈，必须传的数据是currentPage和pageSize，暂时不可用，先不做")
+    @ApiOperation(value = "教案评审和反馈", notes = "教案评审和反馈不用参数，这个用分页，要是你可以分页也行。")
     public Result<?> getReviewPage() {
         List<ResultLessonPlanReview> result = lessonPlanReviewService.getReviewPage();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("list", result);
         return new Result<>().success().put(jsonObject);
+    }
+
+    @PostMapping("/updateReview")
+    @ApiOperation(value = "教案评审", notes = "教案评审就相当于是编辑功能，需要将所有修改的内容传进来")
+    public Result<?> getReviewUpdate(@RequestBody ClassroomFeedbackInfo classroomFeedbackInfo) {
+        boolean result = lessonPlanReviewService.getReviewUpdate(classroomFeedbackInfo);
+        if (result) {
+            return new Result<>().success().put(result);
+        }
+        return new Result<>().fail();
+    }
+
+    @GetMapping("/deleteReview")
+    @ApiOperation(value = "教案评审删除", notes = "删除教案评审，只需要将id传过来即可")
+    public Result<?> getReviewDelete(@RequestParam("feedback_id") Integer id) {
+        boolean result = lessonPlanReviewService.getReviewDelte(id);
+        if (result) {
+            return new Result<>().success().put(result);
+        }
+
+        return new Result<>().fail();
     }
 }

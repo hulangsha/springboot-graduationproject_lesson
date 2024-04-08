@@ -162,4 +162,15 @@ public class LessonPlanController {
         return new Result<>().fail();
     }
 
+    @GetMapping("searchLessonPlan")
+    @ApiOperation(value = "课堂评估所用的查询教案", notes = "查询教案不需要传输参数,我把所有的数据都返回给你，你把教案名称展示给用户选择就行了，title，选择了教案的时候传输回后端的参数是教案的id，不是教案名字")
+    public Result<?> searchLessonPlan () {
+        List<LessonPlan> lessonPlanList = lessonPlanService.searchLessonPlan();
+        if (lessonPlanList.isEmpty()) {
+            return new Result<>().fail();
+        }
+        return new Result<>().success().put(lessonPlanList);
+    }
+
+
 }

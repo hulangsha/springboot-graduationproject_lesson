@@ -46,4 +46,6 @@ public interface LessonPlanService extends IService<LessonPlan> {
     boolean changeShareState(LessonPlanInfo lessonPlanInfo);
 
     boolean getLessonPlanDelete(Integer id);
+
+    List<LessonPlan> searchLessonPlan();
 }
