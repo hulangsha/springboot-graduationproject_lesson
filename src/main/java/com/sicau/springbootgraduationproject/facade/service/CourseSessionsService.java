@@ -1,6 +1,6 @@
 package com.sicau.springbootgraduationproject.facade.service;
 
-import com.sicau.springbootgraduationproject.facade.entity.ClassroomFeedback;
+import com.sicau.springbootgraduationproject.facade.entity.CourseSessions;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author Hu Langsha：2024/3/28
  * @since 2024-04-08
  */
-public interface ClassroomFeedbackService extends IService<ClassroomFeedback> {
+public interface CourseSessionsService extends IService<CourseSessions> {
 
 }

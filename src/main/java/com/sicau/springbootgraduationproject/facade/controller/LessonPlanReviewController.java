@@ -40,7 +40,7 @@ public class LessonPlanReviewController {
     @PostMapping("/reviewPage")
     @ApiOperation(value = "教案评审和反馈", notes = "教案评审和反馈，必须传的数据是currentPage和pageSize，暂时不可用，先不做")
     public Result<?> getReviewPage() {
-        List<LessonPlanReview> result = lessonPlanReviewService.getReviewPage();
+        List<ResultLessonPlanReview> result = lessonPlanReviewService.getReviewPage();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("list", result);
         return new Result<>().success().put(jsonObject);

@@ -1,13 +1,14 @@
 package com.sicau.springbootgraduationproject.facade.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -15,7 +16,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author Hu Langsha：2024/3/28
- * @since 2024-03-30
+ * @since 2024-04-08
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -37,10 +38,10 @@ public class ClassroomFeedback implements Serializable {
     private Integer lessonPlanId;
 
     /**
-     * 学生id
+     * 反馈和评估人id
      */
-    @TableField("student_id")
-    private Integer studentId;
+    @TableField("evaluator_id")
+    private Integer evaluatorId;
 
     /**
      * 反馈内容
@@ -51,8 +52,8 @@ public class ClassroomFeedback implements Serializable {
     /**
      * 评分
      */
-    @TableField("rating")
-    private String rating;
+    @TableField("score")
+    private String score;
 
     /**
      * 反馈时间
@@ -65,6 +66,12 @@ public class ClassroomFeedback implements Serializable {
      */
     @TableField("isDelete")
     private String isDelete;
+
+    /**
+     * 关联课程节次表的节次id
+     */
+    @TableField("session_id")
+    private Integer sessionId;
 
 
 }

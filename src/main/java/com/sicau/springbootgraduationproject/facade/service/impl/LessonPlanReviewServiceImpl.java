@@ -14,6 +14,7 @@ import com.sicau.springbootgraduationproject.facade.service.LessonPlanService;
 import com.sicau.springbootgraduationproject.facade.service.UserService;
 import com.sicau.springbootgraduationproject.facade.vo.QueryLessonPlanReview;
 import com.sicau.springbootgraduationproject.facade.vo.ResultLessonPlanReview;
+import com.sicau.springbootgraduationproject.facade.vo.ReviewVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,16 +49,38 @@ public class LessonPlanReviewServiceImpl extends ServiceImpl<LessonPlanReviewMap
 
 
     @Override
-    public List<LessonPlanReview> getReviewPage() {
+    public List<ResultLessonPlanReview> getReviewPage() {
+        QueryWrapper<LessonPlanReview> queryWrapper = new QueryWrapper<>();
+        List<LessonPlanReview> reviews = lessonPlanReviewMapper.selectList(queryWrapper);
 
-        List<LessonPlanReview> list = null;
-        try {
-            list = lessonPlanReviewMapper.queryLessonReviewMapperList();
-        }catch (Exception e) {
-            log.info("怎么了？：{}", e);
-            throw new RuntimeException();
+        List<ReviewVo> collect = reviews.stream().map(review -> {
+            LessonPlan lessonPlan = lessonPlanMapper.selectById(review.getLessonPlanId());
+            User user = userMapper.selectById(review.getReviewerId());
+            ReviewVo reviewVo = new ReviewVo();
+            reviewVo.setLessonPlanReview(review);
+            reviewVo.setLessonPlan(lessonPlan);
+            reviewVo.setUser(user);
+            return reviewVo;
+        }).collect(Collectors.toList());
+
+        ArrayList<ResultLessonPlanReview> lessonPlanReviewArrayList = new ArrayList<>();
+        Iterator<ReviewVo> iterator = collect.iterator();
+
+        while (iterator.hasNext()) {
+            ReviewVo reviewVo = iterator.next();
+            LessonPlan lessonPlan = reviewVo.getLessonPlan();
+            LessonPlanReview lessonPlanReview = reviewVo.getLessonPlanReview();
+            User user = reviewVo.getUser();
+            ResultLessonPlanReview planReview = new ResultLessonPlanReview();
+            planReview.setReviewId(lessonPlanReview.getReviewId());
+            planReview.setComments(lessonPlanReview.getComments());
+            planReview.setReviewTime(lessonPlanReview.getReviewTime());
+            planReview.setIsDelete(lessonPlanReview.getIsDelete());
+            planReview.setTitle(lessonPlan.getTitle());
+            planReview.setNickname(user.getNickname());
+            System.out.println(planReview);
+            lessonPlanReviewArrayList.add(planReview);
         }
-
-        return list;
+        return lessonPlanReviewArrayList;
     }
 }

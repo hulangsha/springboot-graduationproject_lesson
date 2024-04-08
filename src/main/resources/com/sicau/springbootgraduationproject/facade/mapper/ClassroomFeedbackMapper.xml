@@ -6,16 +6,17 @@
     <resultMap id="BaseResultMap" type="com.sicau.springbootgraduationproject.facade.entity.ClassroomFeedback">
         <id column="feedback_id" property="feedbackId" />
         <result column="lesson_plan_id" property="lessonPlanId" />
-        <result column="student_id" property="studentId" />
+        <result column="evaluator_id" property="evaluatorId" />
         <result column="feedback_content" property="feedbackContent" />
-        <result column="rating" property="rating" />
+        <result column="score" property="score" />
         <result column="feedback_time" property="feedbackTime" />
         <result column="isDelete" property="isDelete" />
+        <result column="session_id" property="sessionId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        feedback_id, lesson_plan_id, student_id, feedback_content, rating, feedback_time, isDelete
+        feedback_id, lesson_plan_id, evaluator_id, feedback_content, score, feedback_time, isDelete, session_id
     </sql>
 
 </mapper>

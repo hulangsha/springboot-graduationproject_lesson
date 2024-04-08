@@ -1,6 +1,6 @@
 package com.sicau.springbootgraduationproject.facade.mapper;
 
-import com.sicau.springbootgraduationproject.facade.entity.ClassroomFeedback;
+import com.sicau.springbootgraduationproject.facade.entity.CourseSessions;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author Hu Langsha：2024/3/28
  * @since 2024-04-08
  */
-public interface ClassroomFeedbackMapper extends BaseMapper<ClassroomFeedback> {
+public interface CourseSessionsMapper extends BaseMapper<CourseSessions> {
 
 }

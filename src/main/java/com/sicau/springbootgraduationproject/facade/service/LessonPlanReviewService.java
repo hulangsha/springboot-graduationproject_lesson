@@ -18,5 +18,5 @@ import java.util.List;
  */
 public interface LessonPlanReviewService extends IService<LessonPlanReview> {
 
-    List<LessonPlanReview> getReviewPage();
+    List<ResultLessonPlanReview> getReviewPage();
 }

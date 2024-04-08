@@ -7,15 +7,13 @@ import com.sicau.springbootgraduationproject.common.result.PageResult;
 import com.sicau.springbootgraduationproject.common.result.Result;
 import com.sicau.springbootgraduationproject.facade.entity.HistoricalLessonPlan;
 import com.sicau.springbootgraduationproject.facade.service.HistoricalLessonPlanService;
+import com.sicau.springbootgraduationproject.facade.vo.HistoricalLessonPlanInfo;
 import com.sicau.springbootgraduationproject.facade.vo.QueryHistoricalLessonPlan;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -41,5 +39,25 @@ public class HistoricalLessonPlanController {
         result.setCode(CommonCode.SUCCESS.getCode());
         result.setMsg(CommonCode.SUCCESS.getMessage());
         return result;
+    }
+
+    @PostMapping("/updateHistoricalPlan")
+    @ApiOperation(value = "编辑教案", notes = "编辑教案传递基本参数即可，其他的就用原来的数据")
+    public Result<?> getHistoricalUpdate(@RequestBody HistoricalLessonPlanInfo historicalLessonPlanInfo) {
+        boolean result = historicalLessonPlanService.getHistoricalPlanUpdate(historicalLessonPlanInfo);
+        if (result) {
+            return new Result<>().success().put(result);
+        }
+        return new Result<>().fail();
+    }
+
+    @GetMapping("/deleteHistoricalPlan")
+    @ApiOperation(value = "删除教案", notes = "删除教案，传一个历史教案id即可")
+    public Result<?> getHistoricalDelete(@RequestParam("historicalLessonPlanId") String id) {
+        boolean result = historicalLessonPlanService.getHistoricalDelete(id);
+        if (result) {
+            return new Result<>().success().put(result);
+        }
+        return new Result<>().fail();
     }
 }

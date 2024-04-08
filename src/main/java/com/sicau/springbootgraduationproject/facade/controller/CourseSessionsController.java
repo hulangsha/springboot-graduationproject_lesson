@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2024-04-08
  */
 @RestController
-@RequestMapping("/facade/classroomFeedback")
-public class ClassroomFeedbackController {
+@RequestMapping("/facade/courseSessions")
+public class CourseSessionsController {
 
 }
