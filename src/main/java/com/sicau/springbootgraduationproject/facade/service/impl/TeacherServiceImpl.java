@@ -2,6 +2,7 @@ package com.sicau.springbootgraduationproject.facade.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sicau.springbootgraduationproject.common.component.CommonCode;
 import com.sicau.springbootgraduationproject.facade.entity.Teacher;
 import com.sicau.springbootgraduationproject.facade.mapper.TeacherMapper;
 import com.sicau.springbootgraduationproject.facade.service.TeacherService;
@@ -30,12 +31,14 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
     @Override
     public List<Teacher> getTeacherList() {
         QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("isDelete", CommonCode.CONST_NUMBER_ONE.getCode());
         return this.list(queryWrapper);
     }
 
     @Override
     public Page<Teacher> getSearchTeacher(QueryTeacher queryTeacher) {
         QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("isDelete", CommonCode.CONST_NUMBER_ONE.getCode());
         Page<Teacher> page = new Page<>();
         page.setSize(queryTeacher.getPageSize());
         page.setCurrent(queryTeacher.getCurrentPage());

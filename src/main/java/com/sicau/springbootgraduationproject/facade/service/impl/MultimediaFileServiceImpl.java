@@ -32,7 +32,7 @@ public class MultimediaFileServiceImpl extends ServiceImpl<MultimediaFileMapper,
         QueryWrapper<MultimediaFile> queryWrapper = new QueryWrapper<>();
         page.setSize(queryMultimediaFile.getPageSize());
         page.setCurrent(queryMultimediaFile.getCurrentPage());
-        queryWrapper.eq("isDelete", CommonCode.CONST_NUMBER_ONE);
+        queryWrapper.eq("isDelete", CommonCode.CONST_NUMBER_ONE.getCode());
         return this.page(page, queryWrapper);
     }
 

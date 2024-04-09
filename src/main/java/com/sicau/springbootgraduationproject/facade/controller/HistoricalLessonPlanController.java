@@ -35,8 +35,13 @@ public class HistoricalLessonPlanController {
     @PostMapping("/getHistoricalPlanPage")
     @ApiOperation(value = "教案分页查询", notes = "查询历史教案，必须要用的参数是当前页和每页显示多少条,currentPage,pageSize")
     public PageResult getHistoricalPlanPage(@RequestBody QueryHistoricalLessonPlan historicalLessonPlanInfo) {
-        Page<HistoricalLessonPlan> pageResult = historicalLessonPlanService.getHistoricalPlanPage(historicalLessonPlanInfo);
-        PageResult<HistoricalLessonPlan> result = new PageResult<>(pageResult.getCurrent(), pageResult.getSize(), pageResult.getTotal(), pageResult.getPages(), pageResult.getRecords());
+        PageResult<HistoricalLessonPlan> result = null;
+        try {
+            Page<HistoricalLessonPlan> pageResult = historicalLessonPlanService.getHistoricalPlanPage(historicalLessonPlanInfo);
+            result = new PageResult<>(pageResult.getCurrent(), pageResult.getSize(), pageResult.getTotal(), pageResult.getPages(), pageResult.getRecords());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         result.setCode(CommonCode.SUCCESS.getCode());
         result.setMsg(CommonCode.SUCCESS.getMessage());
         return result;

@@ -51,7 +51,7 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
         page.setCurrent(queryLessonPlan.getCurrentPage());
         page.setSize(queryLessonPlan.getPageSize());
         QueryWrapper<LessonPlan> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("creator_id",userId);
+        queryWrapper.eq("creator_id",userId).eq("isDelete", CommonCode.CONST_NUMBER_ONE.getCode());
         return this.page(page, queryWrapper);
     }
 

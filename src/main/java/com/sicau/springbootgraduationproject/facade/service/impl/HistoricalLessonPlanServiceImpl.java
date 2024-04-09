@@ -2,6 +2,7 @@ package com.sicau.springbootgraduationproject.facade.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sicau.springbootgraduationproject.common.component.CommonCode;
 import com.sicau.springbootgraduationproject.facade.entity.HistoricalLessonPlan;
 import com.sicau.springbootgraduationproject.facade.entity.User;
 import com.sicau.springbootgraduationproject.facade.mapper.HistoricalLessonPlanMapper;
@@ -41,7 +42,7 @@ public class HistoricalLessonPlanServiceImpl extends ServiceImpl<HistoricalLesso
         page.setCurrent(historicalLessonPlanInfo.getCurrentPage());
         page.setSize(historicalLessonPlanInfo.getPageSize());
         QueryWrapper<HistoricalLessonPlan> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("creator_id", user.getUserId());
+        queryWrapper.eq("creator_id", user.getUserId()).eq("isDelete", CommonCode.CONST_NUMBER_ONE.getCode());
         return this.page(page, queryWrapper);
     }
 
@@ -69,6 +70,7 @@ public class HistoricalLessonPlanServiceImpl extends ServiceImpl<HistoricalLesso
         page.setCurrent(historicalLessonPlanInfo.getCurrentPage());
         page.setSize(historicalLessonPlanInfo.getPageSize());
         QueryWrapper<HistoricalLessonPlan> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("isDelete", CommonCode.CONST_NUMBER_ONE.getCode());
         return this.page(page, queryWrapper);
     }
 }

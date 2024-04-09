@@ -35,8 +35,13 @@ public class PreparationPlanController {
     @PostMapping("/preparationPlanPage")
     @ApiOperation("查询准备计划和进度，必须传的参数是currentPage和pageSize")
     public PageResult getPreparationPlanPage(@RequestBody QueryPreparationPlan queryPreparationPlan){
-        Page<PreparationPlan> page = preparationPlanService.getPreparationPlanPage(queryPreparationPlan);
-        PageResult<PreparationPlan> pageResult = new PageResult<>(page.getCurrent(), page.getSize(), page.getTotal(), page.getPages(), page.getRecords());
+        PageResult<PreparationPlan> pageResult = null;
+        try {
+            Page<PreparationPlan> page = preparationPlanService.getPreparationPlanPage(queryPreparationPlan);
+            pageResult = new PageResult<>(page.getCurrent(), page.getSize(), page.getTotal(), page.getPages(), page.getRecords());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         pageResult.setCode(CommonCode.SUCCESS.getCode());
         pageResult.setMsg(CommonCode.SUCCESS.getMessage());
         return pageResult;

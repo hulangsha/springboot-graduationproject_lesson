@@ -2,6 +2,7 @@ package com.sicau.springbootgraduationproject.facade.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sicau.springbootgraduationproject.common.component.CommonCode;
 import com.sicau.springbootgraduationproject.facade.entity.LessonPlan;
 import com.sicau.springbootgraduationproject.facade.entity.LessonPlanReview;
 import com.sicau.springbootgraduationproject.facade.entity.User;
@@ -53,6 +54,7 @@ public class LessonPlanReviewServiceImpl extends ServiceImpl<LessonPlanReviewMap
     @Override
     public List<ResultLessonPlanReview> getReviewPage() {
         QueryWrapper<LessonPlanReview> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("isDelete", CommonCode.CONST_NUMBER_ONE.getCode());
         List<LessonPlanReview> reviews = lessonPlanReviewMapper.selectList(queryWrapper);
 
         List<ReviewVo> collect = reviews.stream().map(review -> {

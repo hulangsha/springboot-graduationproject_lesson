@@ -1,6 +1,7 @@
 package com.sicau.springbootgraduationproject.facade.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.sicau.springbootgraduationproject.common.component.CommonCode;
 import com.sicau.springbootgraduationproject.facade.entity.User;
 import com.sicau.springbootgraduationproject.facade.mapper.UserMapper;
 import com.sicau.springbootgraduationproject.facade.service.UserService;
@@ -28,7 +29,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public User getUser(UserInfo userInfo) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("user_name", userInfo.getUserName()).eq("password", userInfo.getPassword());
+        wrapper.eq("user_name", userInfo.getUserName()).eq("password", userInfo.getPassword()).eq("isDelete", CommonCode.CONST_NUMBER_ONE.getCode());
         return this.getOne(wrapper);
     }
 

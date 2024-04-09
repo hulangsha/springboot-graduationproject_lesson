@@ -2,6 +2,7 @@ package com.sicau.springbootgraduationproject.facade.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sicau.springbootgraduationproject.common.component.CommonCode;
 import com.sicau.springbootgraduationproject.facade.entity.PreparationPlan;
 import com.sicau.springbootgraduationproject.facade.entity.User;
 import com.sicau.springbootgraduationproject.facade.mapper.PreparationPlanMapper;
@@ -34,7 +35,7 @@ public class PreparationPlanServiceImpl extends ServiceImpl<PreparationPlanMappe
         }
         User user = (User) subject.getPrincipal();
         QueryWrapper<PreparationPlan> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("creator_id",user.getUserId());
+        queryWrapper.eq("creator_id",user.getUserId()).eq("isDelete", CommonCode.CONST_NUMBER_ONE.getCode());
         return this.page(page,queryWrapper);
     }
 }
