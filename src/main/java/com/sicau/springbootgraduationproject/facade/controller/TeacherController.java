@@ -39,7 +39,7 @@ public class TeacherController {
         return new Result<>().success().put(teacherList);
     }
 
-    @PostMapping("getTeacherList")
+    @PostMapping("/getTeacherList")
     @ApiOperation(tags = "教师管理模块", value = "查询教师信息", notes = "查询教师，需要分页")
     public PageResult searchTeacher(@RequestBody QueryTeacher queryTeacher) {
         Page<Teacher> page = teacherService.getSearchTeacher(queryTeacher);
