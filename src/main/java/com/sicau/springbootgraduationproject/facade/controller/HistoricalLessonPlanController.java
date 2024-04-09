@@ -62,7 +62,7 @@ public class HistoricalLessonPlanController {
         return new Result<>().fail();
     }
 
-    @PostMapping("/getHistoricalPlanPage")
+    @PostMapping("/getHistoricalPlanManagerPage")
     @ApiOperation(value = "管理员历史教案分页查询", notes = "查询管理员历史教案，必须要用的参数是当前页和每页显示多少条,currentPage,pageSize，必须是管理员用户才能访问")
     @RequiresRoles("管理员")
     public PageResult getHistoricalPlanPageManager(@RequestBody QueryHistoricalLessonPlan historicalLessonPlanInfo) {

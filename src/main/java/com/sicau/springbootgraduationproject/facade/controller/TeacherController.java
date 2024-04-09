@@ -80,6 +80,21 @@ public class TeacherController {
         return new Result<>().fail();
     }
 
+    @PostMapping("/updateTeacher")
+    @ApiOperation(tags = "教师管理模块", value = "编辑教师", notes = "编辑教师，必须要用管理员用户才能操作成功，不然就会返回404，必须传入教师id")
+    @RequiresRoles("管理员")
+    public Result<?> updateTeacher(@RequestBody TeacherInfo teacherInfo){
+        try {
+            boolean result = teacherService.getUpdateTeacher(teacherInfo);
+            if (result) {
+                return new Result<>().success().put(result);
+            }
+        } catch (Exception e) {
+            throw new AuthorizationException(e);
+        }
+        return new Result<>().fail();
+    }
+
 
 
 

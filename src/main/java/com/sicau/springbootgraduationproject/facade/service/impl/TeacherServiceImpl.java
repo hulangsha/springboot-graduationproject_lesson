@@ -60,4 +60,11 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         teacherMapper.updateById(teacher);
         return true;
     }
+
+    @Override
+    public boolean getUpdateTeacher(TeacherInfo teacherInfo) {
+        Teacher teacher = new Teacher();
+        BeanUtils.copyProperties(teacherInfo, teacher);
+        return this.updateById(teacher);
+    }
 }

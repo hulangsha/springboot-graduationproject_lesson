@@ -25,4 +25,6 @@ public interface TeacherService extends IService<Teacher> {
     boolean getAddTeacher(TeacherInfo teacherInfo);
 
     boolean getDeleteTeacher(Integer id);
+
+    boolean getUpdateTeacher(TeacherInfo teacherInfo);
 }
