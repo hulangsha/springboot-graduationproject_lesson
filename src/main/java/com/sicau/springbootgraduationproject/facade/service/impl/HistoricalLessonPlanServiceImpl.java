@@ -62,4 +62,13 @@ public class HistoricalLessonPlanServiceImpl extends ServiceImpl<HistoricalLesso
         historicalLessonPlanMapper.updateById(historicalLessonPlan);
         return true;
     }
+
+    @Override
+    public Page<HistoricalLessonPlan> getHistoricalPlanPageManager(QueryHistoricalLessonPlan historicalLessonPlanInfo) {
+        Page<HistoricalLessonPlan> page = new Page<>();
+        page.setCurrent(historicalLessonPlanInfo.getCurrentPage());
+        page.setSize(historicalLessonPlanInfo.getPageSize());
+        QueryWrapper<HistoricalLessonPlan> queryWrapper = new QueryWrapper<>();
+        return this.page(page, queryWrapper);
+    }
 }

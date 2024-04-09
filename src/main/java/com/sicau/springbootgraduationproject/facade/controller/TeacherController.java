@@ -11,6 +11,9 @@ import com.sicau.springbootgraduationproject.facade.vo.QueryTeacher;
 import com.sicau.springbootgraduationproject.facade.vo.TeacherInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.AuthorizationException;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,18 +54,23 @@ public class TeacherController {
     }
 
     @PostMapping("/getAddTeacher")
-    @ApiOperation(tags = "教师管理模块", value = "添加教师", notes = "添加教师")
-    public Result<?> searchTeacher(@RequestBody TeacherInfo teacherInfo) {
-        boolean result = teacherService.getAddTeacher(teacherInfo);
-        if (result) {
-            return new Result<>().success().put(result);
+    @ApiOperation(tags = "教师管理模块", value = "添加教师", notes = "添加教师，必须要用管理员用户才能操作成功，不然就会返回404")
+    @RequiresRoles("管理员")
+    public Result<?> searchTeacher(@RequestBody TeacherInfo teacherInfo){
+        try {
+            boolean result = teacherService.getAddTeacher(teacherInfo);
+            if (result) {
+                return new Result<>().success().put(result);
+            }
+        } catch (Exception e) {
+            throw new AuthorizationException(e);
         }
-
         return new Result<>().fail();
     }
 
     @GetMapping("/getDeleteTeacher")
-    @ApiOperation(tags = "教师管理模块", value = "删除教师", notes = "删除教师,需要传入教师的id")
+    @ApiOperation(tags = "教师管理模块", value = "删除教师", notes = "删除教师,需要传入教师的id，必须要用管理员用户才能操作成功，不然就会返回404")
+    @RequiresRoles("管理员")
     public Result<?> deleteTeacher(@RequestParam("teacherId") Integer id) {
         boolean result = teacherService.getDeleteTeacher(id);
         if (result) {

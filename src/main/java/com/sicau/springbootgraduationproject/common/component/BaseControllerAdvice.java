@@ -2,8 +2,12 @@ package com.sicau.springbootgraduationproject.common.component;
 
 import com.sicau.springbootgraduationproject.common.result.Result;
 import org.apache.shiro.authz.UnauthorizedException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.nio.file.AccessDeniedException;
 
 @ControllerAdvice
 public class BaseControllerAdvice {
@@ -16,4 +20,11 @@ public class BaseControllerAdvice {
     public Result<?> exceptionResponse(Exception e){
         return new Result<>().fail(CommonCode.Fail_SERVER.getCode(), CommonCode.Fail_SERVER.getMessage());
     }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException ex) {
+        return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
+    }
+
+
 }

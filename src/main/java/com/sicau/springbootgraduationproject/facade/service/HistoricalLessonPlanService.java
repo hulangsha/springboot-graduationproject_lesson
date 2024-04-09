@@ -21,4 +21,6 @@ public interface HistoricalLessonPlanService extends IService<HistoricalLessonPl
     boolean getHistoricalPlanUpdate(HistoricalLessonPlanInfo historicalLessonPlanInfo);
 
     boolean getHistoricalDelete(String id);
+
+    Page<HistoricalLessonPlan> getHistoricalPlanPageManager(QueryHistoricalLessonPlan historicalLessonPlanInfo);
 }

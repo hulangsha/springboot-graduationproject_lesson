@@ -12,6 +12,7 @@ import com.sicau.springbootgraduationproject.facade.vo.QueryHistoricalLessonPlan
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,5 +60,16 @@ public class HistoricalLessonPlanController {
             return new Result<>().success().put(result);
         }
         return new Result<>().fail();
+    }
+
+    @PostMapping("/getHistoricalPlanPage")
+    @ApiOperation(value = "管理员历史教案分页查询", notes = "查询管理员历史教案，必须要用的参数是当前页和每页显示多少条,currentPage,pageSize，必须是管理员用户才能访问")
+    @RequiresRoles("管理员")
+    public PageResult getHistoricalPlanPageManager(@RequestBody QueryHistoricalLessonPlan historicalLessonPlanInfo) {
+        Page<HistoricalLessonPlan> pageResult = historicalLessonPlanService.getHistoricalPlanPageManager(historicalLessonPlanInfo);
+        PageResult<HistoricalLessonPlan> result = new PageResult<>(pageResult.getCurrent(), pageResult.getSize(), pageResult.getTotal(), pageResult.getPages(), pageResult.getRecords());
+        result.setCode(CommonCode.SUCCESS.getCode());
+        result.setMsg(CommonCode.SUCCESS.getMessage());
+        return result;
     }
 }

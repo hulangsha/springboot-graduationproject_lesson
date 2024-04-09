@@ -1,7 +1,10 @@
 package com.sicau.springbootgraduationproject.facade.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sicau.springbootgraduationproject.facade.entity.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sicau.springbootgraduationproject.facade.vo.CourseInfo;
+import com.sicau.springbootgraduationproject.facade.vo.QueryCourse;
 
 /**
  * <p>
@@ -13,4 +16,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface CourseService extends IService<Course> {
 
+    Page<Course> searchCourse(QueryCourse queryCourse);
+
+    boolean addCourse(CourseInfo courseInfo);
+
+    boolean updateCourse(CourseInfo courseInfo);
+
+    boolean deleteCourse(Integer id);
 }
