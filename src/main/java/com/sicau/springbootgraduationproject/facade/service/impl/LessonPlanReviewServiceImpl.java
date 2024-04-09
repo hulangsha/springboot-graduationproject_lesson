@@ -53,10 +53,11 @@ public class LessonPlanReviewServiceImpl extends ServiceImpl<LessonPlanReviewMap
 
     @Override
     public List<ResultLessonPlanReview> getReviewPage() {
+        //查看有权限教案
         QueryWrapper<LessonPlanReview> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("isDelete", CommonCode.CONST_NUMBER_ONE.getCode());
         List<LessonPlanReview> reviews = lessonPlanReviewMapper.selectList(queryWrapper);
-
+        //过滤教案，评审人
         List<ReviewVo> collect = reviews.stream().map(review -> {
             LessonPlan lessonPlan = lessonPlanMapper.selectById(review.getLessonPlanId());
             User user = userMapper.selectById(review.getReviewerId());
@@ -66,10 +67,10 @@ public class LessonPlanReviewServiceImpl extends ServiceImpl<LessonPlanReviewMap
             reviewVo.setUser(user);
             return reviewVo;
         }).collect(Collectors.toList());
-
+        //迭代，并拿取数据
         ArrayList<ResultLessonPlanReview> lessonPlanReviewArrayList = new ArrayList<>();
         Iterator<ReviewVo> iterator = collect.iterator();
-
+        //将数据封装进评审内容
         while (iterator.hasNext()) {
             ReviewVo reviewVo = iterator.next();
             LessonPlan lessonPlan = reviewVo.getLessonPlan();

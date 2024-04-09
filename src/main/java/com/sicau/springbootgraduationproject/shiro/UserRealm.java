@@ -112,7 +112,6 @@ public class UserRealm extends AuthorizingRealm {
         if (StringUtils.isEmpty(userName)) {
             throw new AuthenticationException("token无效");
         }
-
         UserInfo userInfo = new UserInfo();
         userInfo.setUserName(userName);
         User user = null;
@@ -123,7 +122,6 @@ public class UserRealm extends AuthorizingRealm {
             System.out.println(e);
             throw new RuntimeException(e);
         }
-
         if (Objects.isNull(user)){
             throw new AuthenticationException("用户不存在");
         }
