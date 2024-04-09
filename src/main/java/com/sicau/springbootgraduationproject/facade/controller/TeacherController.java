@@ -50,7 +50,7 @@ public class TeacherController {
 
     }
 
-    @PostMapping("getAddTeacher")
+    @PostMapping("/getAddTeacher")
     @ApiOperation(tags = "教师管理模块", value = "添加教师", notes = "添加教师")
     public Result<?> searchTeacher(@RequestBody TeacherInfo teacherInfo) {
         boolean result = teacherService.getAddTeacher(teacherInfo);
@@ -61,7 +61,7 @@ public class TeacherController {
         return new Result<>().fail();
     }
 
-    @GetMapping("getDeleteTeacher")
+    @GetMapping("/getDeleteTeacher")
     @ApiOperation(tags = "教师管理模块", value = "删除教师", notes = "删除教师,需要传入教师的id")
     public Result<?> deleteTeacher(@RequestParam("teacherId") Integer id) {
         boolean result = teacherService.getDeleteTeacher(id);
