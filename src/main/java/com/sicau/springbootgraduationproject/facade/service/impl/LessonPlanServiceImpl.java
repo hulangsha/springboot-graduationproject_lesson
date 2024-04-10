@@ -57,15 +57,15 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
 
     @Override
     public boolean getUpdateLessonPlan(LessonPlanInfo lessonPlanInfo) {
+        //保存版本信息，以及更新版本
         Integer oldVersion = lessonPlanInfo.getVersion();
         Integer newVersion = oldVersion + CommonCode.CONST_NUMBER_ONE.getCode();
+        //拿到更新之前的数据
         Integer lessonPlanId = lessonPlanInfo.getLessonPlanId();
-//        LessonPlanInfo newLessonPlanInfo = lessonPlanInfo;
-
         QueryWrapper<LessonPlan> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("lesson_plan_id", lessonPlanId);
         LessonPlan oldLessonPlan = lessonPlanMapper.selectOne(queryWrapper);
-
+        //拿到更新之前的信息并存储
         LessonPlanInfo oldLessonPlanInfo = new LessonPlanInfo();
         oldLessonPlanInfo.setLessonPlanId(oldLessonPlan.getLessonPlanId());
         oldLessonPlanInfo.setVersion(oldLessonPlan.getVersion());
@@ -78,6 +78,7 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
         //修改教案之前先向历史教案表插入数据
         boolean historicalResult = historicalLessonPlanMapper.addLessonPlan(oldLessonPlanInfo);
         LessonPlan lessonPlan = new LessonPlan();
+        //迭代版本
         lessonPlanInfo.setVersion(newVersion);
         if (historicalResult) {
             BeanUtils.copyProperties(lessonPlanInfo, lessonPlan);
