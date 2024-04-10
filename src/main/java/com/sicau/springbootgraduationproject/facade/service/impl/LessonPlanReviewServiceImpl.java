@@ -13,10 +13,7 @@ import com.sicau.springbootgraduationproject.facade.service.LessonPlanReviewServ
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sicau.springbootgraduationproject.facade.service.LessonPlanService;
 import com.sicau.springbootgraduationproject.facade.service.UserService;
-import com.sicau.springbootgraduationproject.facade.vo.ClassroomFeedbackInfo;
-import com.sicau.springbootgraduationproject.facade.vo.QueryLessonPlanReview;
-import com.sicau.springbootgraduationproject.facade.vo.ResultLessonPlanReview;
-import com.sicau.springbootgraduationproject.facade.vo.ReviewVo;
+import com.sicau.springbootgraduationproject.facade.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,9 +87,9 @@ public class LessonPlanReviewServiceImpl extends ServiceImpl<LessonPlanReviewMap
     }
 
     @Override
-    public boolean getReviewUpdate(ClassroomFeedbackInfo classroomFeedbackInfo) {
+    public boolean getReviewUpdate(LessonPlanReviewInfo lessonPlanReviewInfo) {
         LessonPlanReview lessonPlanReview = new LessonPlanReview();
-        BeanUtils.copyProperties(classroomFeedbackInfo, lessonPlanReview);
+        BeanUtils.copyProperties(lessonPlanReviewInfo, lessonPlanReview);
         return this.updateById(lessonPlanReview);
     }
 

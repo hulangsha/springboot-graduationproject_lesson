@@ -9,6 +9,7 @@ import com.sicau.springbootgraduationproject.common.result.Result;
 import com.sicau.springbootgraduationproject.facade.entity.LessonPlanReview;
 import com.sicau.springbootgraduationproject.facade.service.LessonPlanReviewService;
 import com.sicau.springbootgraduationproject.facade.vo.ClassroomFeedbackInfo;
+import com.sicau.springbootgraduationproject.facade.vo.LessonPlanReviewInfo;
 import com.sicau.springbootgraduationproject.facade.vo.QueryLessonPlanReview;
 import com.sicau.springbootgraduationproject.facade.vo.ResultLessonPlanReview;
 import io.swagger.annotations.Api;
@@ -45,8 +46,8 @@ public class LessonPlanReviewController {
 
     @PostMapping("/updateReview")
     @ApiOperation(value = "教案评审", notes = "教案评审就相当于是编辑功能，需要将所有修改的内容传进来")
-    public Result<?> getReviewUpdate(@RequestBody ClassroomFeedbackInfo classroomFeedbackInfo) {
-        boolean result = lessonPlanReviewService.getReviewUpdate(classroomFeedbackInfo);
+    public Result<?> getReviewUpdate(@RequestBody LessonPlanReviewInfo lessonPlanReviewInfo) {
+        boolean result = lessonPlanReviewService.getReviewUpdate(lessonPlanReviewInfo);
         if (result) {
             return new Result<>().success().put(result);
         }
