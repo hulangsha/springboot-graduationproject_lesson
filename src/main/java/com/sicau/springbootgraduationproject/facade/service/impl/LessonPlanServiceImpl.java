@@ -127,7 +127,7 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
         }
         User user = (User) subject.getPrincipal();
         QueryWrapper<LessonPlan> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("share_state", CommonCode.CONST_NUMBER_ONE.getCode()).eq("creator_id", user.getUserId());
+        queryWrapper.eq("creator_id", user.getUserId());
         return this.list(queryWrapper);
     }
 

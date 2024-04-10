@@ -49,6 +49,7 @@ public class ShiroConfig {
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         //放行请求
         filterChainDefinitionMap.put("/api/user/login", "anon");
+        filterChainDefinitionMap.put("/static/**", "anon");
 //        filterChainDefinitionMap.put("/api/lessonPlan/lessonPlanPage", "anon");
 
         // 放行Swagger相关访问
