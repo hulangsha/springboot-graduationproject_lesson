@@ -97,4 +97,11 @@ public class LessonPlanReviewServiceImpl extends ServiceImpl<LessonPlanReviewMap
     public boolean getReviewDelte(Integer id) {
         return this.removeById(id);
     }
+
+    @Override
+    public boolean addSuggestPlan(LessonPlanReviewInfo lessonPlanReviewInfo) {
+        LessonPlanReview lessonPlanReview = new LessonPlanReview();
+        BeanUtils.copyProperties(lessonPlanReviewInfo, lessonPlanReview);
+        return this.save(lessonPlanReview);
+    }
 }

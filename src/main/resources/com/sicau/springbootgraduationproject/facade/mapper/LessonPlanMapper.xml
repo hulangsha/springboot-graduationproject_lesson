@@ -24,8 +24,22 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        lesson_plan_id, title, objectives, steps, resources, creator_id, create_time, last_update_time, isDelete, share_state, team
+        lesson_plan_id, title, objectives, steps, resources, creator_id, create_time, last_update_time, isDelete, share_state, team, version
     </sql>
+    <update id="updateLessonPlan">
+        update t_lesson_plan set
+
+                                 title = #{historicalLessonPlan.title},
+                                 objectives = #{historicalLessonPlan.objectives},
+                                 steps = #{historicalLessonPlan.steps},
+                                 resources = #{historicalLessonPlan.resources},
+                                 creator_id = #{historicalLessonPlan.creatorId},
+                                 create_time = #{historicalLessonPlan.createTime},
+                                 last_update_time = #{historicalLessonPlan.updateTime},
+                                 isDelete = #{historicalLessonPlan.isDelete},
+                                 version = #{historicalLessonPlan.version}
+        where lesson_plan_id = #{historicalLessonPlan.lessonPlanId}
+    </update>
     <select id="getCountLessonPlan" resultMap="countMap">
         SELECT title,count(*) as count FROM t_lesson_plan GROUP BY title
     </select>

@@ -1,5 +1,6 @@
 package com.sicau.springbootgraduationproject.facade.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sicau.springbootgraduationproject.common.component.CommonCode;
@@ -154,5 +155,32 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
     public List<LessonPlan> searchLessonPlan() {
         QueryWrapper<LessonPlan> queryWrapper = new QueryWrapper<>();
         return this.list(queryWrapper);
+    }
+
+    @Override
+    public JSONObject compareLessonContent(Integer lessonPlanId, Integer version) {
+        //拿到修改之前的教案
+        Integer oldVersion = version - CommonCode.CONST_NUMBER_ONE.getCode();
+        QueryWrapper<HistoricalLessonPlan> historicalLessonPlanQueryWrapper = new QueryWrapper<>();
+        historicalLessonPlanQueryWrapper.eq("lesson_plan_id", lessonPlanId).eq("version", version);
+        HistoricalLessonPlan historicalLessonPlan = historicalLessonPlanMapper.selectOne(historicalLessonPlanQueryWrapper);
+        //拿到修改之后的教案
+        QueryWrapper<LessonPlan> lessonPlanQueryWrapper = new QueryWrapper<>();
+        lessonPlanQueryWrapper.eq("lesson_plan_id", lessonPlanId).eq("version", version);
+        LessonPlan lessonPlan = lessonPlanMapper.selectOne(lessonPlanQueryWrapper);
+        JSONObject result = new JSONObject();
+        result.put("historicalLessonPlan", historicalLessonPlan);
+        result.put("lessonPlan", lessonPlan);
+        return result;
+    }
+
+    @Override
+    public boolean getRecoverLesson(Integer lessonId, Integer version) {
+        QueryWrapper<HistoricalLessonPlan> historicalLessonPlanQueryWrapper = new QueryWrapper<>();
+        historicalLessonPlanQueryWrapper.eq("lesson_plan_id", lessonId).eq("version", version);
+        HistoricalLessonPlan historicalLessonPlan = historicalLessonPlanMapper.selectOne(historicalLessonPlanQueryWrapper);
+        boolean result = lessonPlanMapper.updateLessonPlan(historicalLessonPlan);
+
+        return result;
     }
 }

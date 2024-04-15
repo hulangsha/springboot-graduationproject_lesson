@@ -3,6 +3,7 @@ package com.sicau.springbootgraduationproject.facade.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sicau.springbootgraduationproject.facade.entity.PreparationPlan;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sicau.springbootgraduationproject.facade.vo.PreparationPlanInfo;
 import com.sicau.springbootgraduationproject.facade.vo.QueryPreparationPlan;
 
 /**
@@ -16,4 +17,8 @@ import com.sicau.springbootgraduationproject.facade.vo.QueryPreparationPlan;
 public interface PreparationPlanService extends IService<PreparationPlan> {
 
     Page<PreparationPlan> getPreparationPlanPage(QueryPreparationPlan queryPreparationPlan);
+
+    boolean addPreparationPlan(PreparationPlanInfo preparationPlanInfo);
+
+    boolean deletePreparationPlan(Integer id);
 }

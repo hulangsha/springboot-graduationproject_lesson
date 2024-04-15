@@ -64,4 +64,14 @@ public class LessonPlanReviewController {
 
         return new Result<>().fail();
     }
+
+    @PostMapping("/suggestLessonPlan")
+    @ApiOperation(value = "共享教案的评价或建议", notes = "除了评审id和日期不传其他的都要")
+    public Result<?> getSuggestLessonPlan(@RequestBody LessonPlanReviewInfo lessonPlanReviewInfo) {
+        boolean result = lessonPlanReviewService.addSuggestPlan(lessonPlanReviewInfo);
+        if (result) {
+            return new Result<>().success().put(result);
+        }
+        return new Result<>().fail();
+    }
 }

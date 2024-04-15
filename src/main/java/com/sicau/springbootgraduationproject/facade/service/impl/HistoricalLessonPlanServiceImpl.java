@@ -17,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * <p>
  *  服务实现类
@@ -72,5 +75,14 @@ public class HistoricalLessonPlanServiceImpl extends ServiceImpl<HistoricalLesso
         QueryWrapper<HistoricalLessonPlan> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("isDelete", CommonCode.CONST_NUMBER_ONE.getCode());
         return this.page(page, queryWrapper);
+    }
+
+    @Override
+    public List<Integer> getHistoricalPlanVersion(Integer lessonId) {
+        QueryWrapper<HistoricalLessonPlan> historicalLessonPlanQueryWrapper = new QueryWrapper<>();
+        historicalLessonPlanQueryWrapper.eq("lesson_plan_id", lessonId);
+        List<HistoricalLessonPlan> historicalLessonPlanList = historicalLessonPlanMapper.selectList(historicalLessonPlanQueryWrapper);
+        List<Integer> collect = historicalLessonPlanList.stream().map(HistoricalLessonPlan::getVersion).collect(Collectors.toList());
+        return collect;
     }
 }

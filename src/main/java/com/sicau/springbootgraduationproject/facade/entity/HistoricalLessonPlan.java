@@ -41,7 +41,7 @@ public class HistoricalLessonPlan implements Serializable {
      * 版本号
      */
     @TableField("version")
-    private String version;
+    private Integer version;
 
     /**
      * 创建时间

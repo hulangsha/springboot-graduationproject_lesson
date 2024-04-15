@@ -25,4 +25,6 @@ public interface LessonPlanReviewService extends IService<LessonPlanReview> {
     boolean getReviewUpdate(LessonPlanReviewInfo lessonPlanReviewInfo);
 
     boolean getReviewDelte(Integer id);
+
+    boolean addSuggestPlan(LessonPlanReviewInfo lessonPlanReviewInfo);
 }

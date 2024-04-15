@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.sicau.springbootgraduationproject.facade.vo.HistoricalLessonPlanInfo;
 import com.sicau.springbootgraduationproject.facade.vo.QueryHistoricalLessonPlan;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -23,4 +25,6 @@ public interface HistoricalLessonPlanService extends IService<HistoricalLessonPl
     boolean getHistoricalDelete(String id);
 
     Page<HistoricalLessonPlan> getHistoricalPlanPageManager(QueryHistoricalLessonPlan historicalLessonPlanInfo);
+
+    List<Integer> getHistoricalPlanVersion(Integer lessonId);
 }

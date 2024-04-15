@@ -8,6 +8,7 @@ import com.sicau.springbootgraduationproject.common.component.CommonCode;
 import com.sicau.springbootgraduationproject.common.result.PageResult;
 import com.sicau.springbootgraduationproject.common.result.Result;
 import com.sicau.springbootgraduationproject.facade.entity.LessonPlan;
+import com.sicau.springbootgraduationproject.facade.service.HistoricalLessonPlanService;
 import com.sicau.springbootgraduationproject.facade.service.LessonPlanService;
 import com.sicau.springbootgraduationproject.facade.service.UserService;
 import com.sicau.springbootgraduationproject.facade.vo.LessonPlanInfo;
@@ -38,6 +39,9 @@ public class LessonPlanController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private HistoricalLessonPlanService historicalLessonPlanService;
 
 
     @PostMapping("/lessonPlanPage")
@@ -172,5 +176,34 @@ public class LessonPlanController {
         return new Result<>().success().put(lessonPlanList);
     }
 
+    @GetMapping("/compareLesson")
+    @ApiOperation(value = "比较教案", notes = "传入当前教案的id和版本号")
+    public Result<?> getCompareLesson(@RequestParam Integer lessonPlanId,@RequestParam Integer version) {
+        JSONObject result = lessonPlanService.compareLessonContent(lessonPlanId, version);
+        if (result.isEmpty()) {
+            return new Result<>().fail();
+        }
+        return new Result<>().success().put(result);
+    }
+
+    @GetMapping("/lessonVersion")
+    @ApiOperation(value = "获取版本号", notes = "传入当前教案的id")
+    public Result<?> getHistoricalLesson(@RequestParam Integer lessonId) {
+        List<Integer> versionList = historicalLessonPlanService.getHistoricalPlanVersion(lessonId);
+        if (versionList.isEmpty()) {
+            return new Result<>().fail();
+        }
+        return new Result<>().success().put(versionList);
+    }
+
+    @GetMapping("/recoverLesson")
+    @ApiOperation(value = "恢复教案", notes = "传入当前教案的id，以及要恢复的版本的版本号")
+    public Result<?> getRecoverLesson(@RequestParam Integer lessonId, @RequestParam Integer version) {
+        boolean result = lessonPlanService.getRecoverLesson(lessonId, version);
+        if (result) {
+            return new Result<>().success().put(result);
+        }
+        return new Result<>().fail();
+    }
 
 }

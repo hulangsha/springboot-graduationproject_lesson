@@ -1,5 +1,6 @@
 package com.sicau.springbootgraduationproject.facade.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sicau.springbootgraduationproject.common.result.Result;
 import com.sicau.springbootgraduationproject.facade.entity.LessonPlan;
@@ -48,4 +49,8 @@ public interface LessonPlanService extends IService<LessonPlan> {
     boolean getLessonPlanDelete(Integer id);
 
     List<LessonPlan> searchLessonPlan();
+
+    JSONObject compareLessonContent(Integer lessonPlanId, Integer version);
+
+    boolean getRecoverLesson(Integer lessonId, Integer version);
 }
