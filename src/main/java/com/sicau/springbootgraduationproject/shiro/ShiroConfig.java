@@ -50,7 +50,7 @@ public class ShiroConfig {
         //放行请求
         filterChainDefinitionMap.put("/api/user/login", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
-//        filterChainDefinitionMap.put("/api/lessonPlan/lessonPlanPage", "anon");
+        filterChainDefinitionMap.put("/druid/**", "anon");
 
         // 放行Swagger相关访问
         filterChainDefinitionMap.put("/docs", "anon");
@@ -67,15 +67,16 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/swagger*/**", "anon");
         filterChainDefinitionMap.put("/doc.html", "anon");
         //拦截剩下的其他请求
-        filterChainDefinitionMap.put("/**", "authc");
+//        filterChainDefinitionMap.put("/**", "authc");
+        filterChainDefinitionMap.put("/**", "anon");
         //设置拦截规则给shiro的拦截链工厂
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         // 添加自己的自定义拦截器并且取名为jwt
         Map<String, Filter> filterMap = new HashMap<String, Filter>(1);
-        filterMap.put("jwt", new JwtFilter());
+//        filterMap.put("jwt", new JwtFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
         //拦截链配置，从上向下顺序执行，一般将jwt过滤器放在最为下边
-        filterChainDefinitionMap.put("/**", "jwt");
+//        filterChainDefinitionMap.put("/**", "jwt");
         //配置拦截链到过滤器工厂
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         //返回实例
