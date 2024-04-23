@@ -89,7 +89,7 @@ public class PreparationPlan implements Serializable {
      * 统计字段完成情况
      */
     @TableField("field_count")
-    private Float fieldCount;
+    private Integer fieldCount;
 
 
 }

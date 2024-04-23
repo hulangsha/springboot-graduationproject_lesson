@@ -71,7 +71,7 @@ public class QueryPreparationPlan implements Serializable {
     /**
      * 统计字段完成情况
      */
-    private String fieldCount;
+    private Integer fieldCount;
 
     /**
      * 当前页

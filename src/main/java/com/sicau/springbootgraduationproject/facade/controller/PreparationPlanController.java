@@ -65,4 +65,15 @@ public class PreparationPlanController {
         return new Result<>().fail();
     }
 
+    @PostMapping("/updatePreparationPlan")
+    @ApiOperation(value = "统计进度", notes = "统计进度，必须要的参数是planId以及fieldCount，用fieldCount字段改变统计状态的值")
+    public Result<?> getUpdatePreparationPlan(@RequestBody PreparationPlanInfo preparationPlanInfo) {
+        boolean result = preparationPlanService.updatePreparation(preparationPlanInfo);
+        if (result) {
+            return new Result<>().success().put(result);
+        }
+        return new Result<>().fail();
+
+    }
+
 }

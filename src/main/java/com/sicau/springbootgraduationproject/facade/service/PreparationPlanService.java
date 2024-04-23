@@ -21,4 +21,6 @@ public interface PreparationPlanService extends IService<PreparationPlan> {
     boolean addPreparationPlan(PreparationPlanInfo preparationPlanInfo);
 
     boolean deletePreparationPlan(Integer id);
+
+    boolean updatePreparation(PreparationPlanInfo preparationPlanInfo);
 }

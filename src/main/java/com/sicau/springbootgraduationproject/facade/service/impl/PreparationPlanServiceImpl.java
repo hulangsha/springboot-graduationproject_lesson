@@ -52,4 +52,11 @@ public class PreparationPlanServiceImpl extends ServiceImpl<PreparationPlanMappe
     public boolean deletePreparationPlan(Integer id) {
         return this.removeById(id);
     }
+
+    @Override
+    public boolean updatePreparation(PreparationPlanInfo preparationPlanInfo) {
+        PreparationPlan preparationPlan = new PreparationPlan();
+        BeanUtils.copyProperties(preparationPlanInfo, preparationPlan);
+        return this.updateById(preparationPlan);
+    }
 }
