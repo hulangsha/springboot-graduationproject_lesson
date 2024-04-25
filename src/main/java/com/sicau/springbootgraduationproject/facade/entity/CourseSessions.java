@@ -56,4 +56,29 @@ public class CourseSessions implements Serializable {
     private LocalTime endTime;
 
 
+    /**
+     * 教师id
+     */
+    @TableField("teacher_id")
+    private Integer teacherId;
+
+
+
+    /**
+     * 课程名称
+     */
+    @TableField("course_name")
+    private String courseName;
+
+
+
+    /**
+     * 教师姓名
+     */
+    @TableField("teacher_name")
+    private String teacherName;
+
+
+
+
 }

@@ -9,11 +9,14 @@
         <result column="session_number" property="sessionNumber" />
         <result column="start_time" property="startTime" />
         <result column="end_time" property="endTime" />
+        <result column="course_name" property="courseName" />
+        <result column="teacher_id" property="teacherId" />
+        <result column="teacher_name" property="teacherName" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        session_id, course_id, session_number, start_time, end_time
+        session_id, course_id, session_number, start_time, end_time, course_name,teacher_id ,teacher_name
     </sql>
 
 </mapper>

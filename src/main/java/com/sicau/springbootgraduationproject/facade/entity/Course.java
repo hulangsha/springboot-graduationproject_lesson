@@ -47,5 +47,19 @@ public class Course implements Serializable {
     @TableField("isDelete")
     private String isDelete;
 
+    /**
+     * 教师姓名
+     */
+    @TableField("teacher_name")
+    private String teacherName;
+
+    /**
+     * 课程节次
+     */
+    @TableField("course_sessions")
+    private String courseSessions;
+
+
+
 
 }

@@ -162,7 +162,7 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
         //拿到修改之前的教案
         Integer oldVersion = version - CommonCode.CONST_NUMBER_ONE.getCode();
         QueryWrapper<HistoricalLessonPlan> historicalLessonPlanQueryWrapper = new QueryWrapper<>();
-        historicalLessonPlanQueryWrapper.eq("lesson_plan_id", lessonPlanId).eq("version", version);
+        historicalLessonPlanQueryWrapper.eq("lesson_plan_id", lessonPlanId).eq("version", oldVersion);
         HistoricalLessonPlan historicalLessonPlan = historicalLessonPlanMapper.selectOne(historicalLessonPlanQueryWrapper);
         //拿到修改之后的教案
         QueryWrapper<LessonPlan> lessonPlanQueryWrapper = new QueryWrapper<>();
@@ -179,6 +179,9 @@ public class LessonPlanServiceImpl extends ServiceImpl<LessonPlanMapper, LessonP
         QueryWrapper<HistoricalLessonPlan> historicalLessonPlanQueryWrapper = new QueryWrapper<>();
         historicalLessonPlanQueryWrapper.eq("lesson_plan_id", lessonId).eq("version", version);
         HistoricalLessonPlan historicalLessonPlan = historicalLessonPlanMapper.selectOne(historicalLessonPlanQueryWrapper);
+        LessonPlan lessonPlan = lessonPlanMapper.selectById(lessonId);
+        Integer formerVersion = lessonPlan.getVersion();
+        historicalLessonPlan.setVersion(formerVersion);
         boolean result = lessonPlanMapper.updateLessonPlan(historicalLessonPlan);
 
         return result;

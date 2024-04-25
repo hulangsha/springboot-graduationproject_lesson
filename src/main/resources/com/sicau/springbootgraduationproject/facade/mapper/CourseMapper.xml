@@ -8,11 +8,13 @@
         <result column="course_name" property="courseName" />
         <result column="teacher_id" property="teacherId" />
         <result column="isDelete" property="isDelete" />
+        <result column="teacher_name" property="teacherName" />
+        <result column="course_sessions" property="courseSessions" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        course_id, course_name, teacher_id, isDelete
+        course_id, course_name, teacher_id, isDelete, teacher_name, course_sessions
     </sql>
 
 </mapper>
